@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
-
     <nav class="floating-nav" aria-label="Navegação principal">
         <ul class="floating-nav__list">
             <li class="floating-nav__item">
@@ -18,22 +17,95 @@
             </li>
             <li aria-hidden="true"></li>
             <li class="floating-nav__item">
-                <a href="#personagens" class="floating-nav__link" data-section="personagens">Personagens</a>
+                <a href="#personagens" class="floating-nav__link" data-section="personagens">PERSONAGENS</a>
             </li>
             <li aria-hidden="true"></li>
             <li class="floating-nav__item">
-                <a href="#saga" class="floating-nav__link" data-section="saga">A Saga</a>
+                <a href="#saga" class="floating-nav__link" data-section="saga">A SAGA</a>
             </li>
             <li aria-hidden="true"></li>
             <li class="floating-nav__item">
-                <a href="#trailers" class="floating-nav__link" data-section="trailers">Trailers</a>
+                <a href="#trailers" class="floating-nav__link" data-section="trailers">TRAILERS</a>
             </li>
         </ul>
     </nav>
 
     <main>
-        <section id="hero" class="hero" aria-label="Hero"></section>
-        <section id="personagens" aria-label="Personagens"></section>
+        <section id="hero" class="hero" aria-label="Hero">
+            <video class="hero__bg-video" autoplay loop muted playsinline preload="auto">
+                <source src="assets/videos/hero-bg-namekusei.mp4" type="video/mp4">
+            </video>
+            <div class="hero__overlay" aria-hidden="true"></div>
+            <div class="hero__goku-glow" aria-hidden="true"></div>
+            <div class="hero__freeza-glow" aria-hidden="true"></div>
+            <video class="hero__figure hero__figure--goku" autoplay loop muted playsinline preload="auto">
+                <source src="assets/videos/goku-hero.mp4" type="video/mp4">
+            </video>
+            <video class="hero__figure hero__figure--freeza" autoplay loop muted playsinline preload="auto">
+                <source src="assets/videos/freeza-hero.mp4" type="video/mp4">
+            </video>
+            <div class="hero__overlay-front" aria-hidden="true"></div>
+            <div class="hero__content">
+                <span class="hero__pill">A Saga Lendária</span>
+                <h1 class="hero__title">
+                    <span class="hero__title-line hero__title-line--main">Dragon Ball Z</span>
+                    <span class="hero__title-line hero__title-line--saga">A Saga de Freeza</span>
+                </h1>
+                <p class="hero__tagline">A batalha que forjou uma lenda</p>
+            </div>
+            <a class="hero__scroll" href="#personagens">
+                <span class="hero__scroll-label">Role para começar</span>
+                <span class="hero__scroll-arrow" aria-hidden="true"></span>
+            </a>
+        </section>
+        <section id="personagens" class="personagens" aria-label="Personagens">
+            <div class="personagens__particles-bg">
+                <div id="personagens-grid" class="personagens__grid"></div>
+            </div>
+            <header class="personagens__header">
+                <p class="personagens__eyebrow">OS GUERREIROS Z</p>
+                <h2 class="personagens__title">Personagens</h2>
+                <p class="personagens__subtitle">OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI</p>
+            </header>
+            <div class="personagens__stage">
+                <figure class="personagem personagem--goku">
+                    <img class="personagem__img" src="assets/images/goku-perso.png" alt="Goku" loading="lazy">
+                    <figcaption class="personagem__name">Goku</figcaption>
+                </figure>
+                <figure class="personagem personagem--vegeta">
+                    <img class="personagem__img" src="assets/images/vegeta-perso.png" alt="Vegeta" loading="lazy">
+                    <figcaption class="personagem__name">Vegeta</figcaption>
+                </figure>
+                <figure class="personagem personagem--gohan">
+                    <img class="personagem__img" src="assets/images/gohan-perso.png" alt="Gohan" loading="lazy">
+                    <figcaption class="personagem__name">Gohan</figcaption>
+                </figure>
+                <figure class="personagem personagem--kuririn">
+                    <img class="personagem__img" src="assets/images/kuririn-perso.png" alt="Kuririn" loading="lazy">
+                    <figcaption class="personagem__name">Kuririn</figcaption>
+                </figure>
+                <figure class="personagem personagem--ginyu">
+                    <img class="personagem__img" src="assets/images/ginyu-perso.png" alt="Capitão Ginyu" loading="lazy">
+                    <figcaption class="personagem__name">Capitão Ginyu</figcaption>
+                </figure>
+                <figure class="personagem personagem--freeza">
+                    <img class="personagem__img" src="assets/images/freeza-perso.png" alt="Freeza" loading="lazy">
+                    <figcaption class="personagem__name">Freeza</figcaption>
+                </figure>
+                <figure class="personagem personagem--piccolo">
+                    <img class="personagem__img" src="assets/images/piccolo-perso.png" alt="Piccolo" loading="lazy">
+                    <figcaption class="personagem__name">Piccolo</figcaption>
+                </figure>
+                <figure class="personagem personagem--dodoria">
+                    <img class="personagem__img" src="assets/images/dodoria-perso.png" alt="Dodoria" loading="lazy">
+                    <figcaption class="personagem__name">Dodoria</figcaption>
+                </figure>
+                <figure class="personagem personagem--zarbon">
+                    <img class="personagem__img" src="assets/images/zarbon-perso.png" alt="Zarbon" loading="lazy">
+                    <figcaption class="personagem__name">Zarbon</figcaption>
+                </figure>
+            </div>
+        </section>
         <section id="saga" class="jornada" aria-label="A Saga"></section>
         <section id="trailers" aria-label="Trailers"></section>
     </main>
