@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka:wght@500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+
+    <nav class="floating-nav" aria-label="Navegação principal">
+        <ul class="floating-nav__list">
+            <li class="floating-nav__item">
+                <a href="#hero" class="floating-nav__link floating-nav__link--active" data-section="hero">DBZ</a>
+            </li>
+            <li aria-hidden="true"></li>
+            <li class="floating-nav__item">
+                <a href="#personagens" class="floating-nav__link" data-section="personagens">Personagens</a>
+            </li>
+            <li aria-hidden="true"></li>
+            <li class="floating-nav__item">
+                <a href="#saga" class="floating-nav__link" data-section="saga">A Saga</a>
+            </li>
+            <li aria-hidden="true"></li>
+            <li class="floating-nav__item">
+                <a href="#trailers" class="floating-nav__link" data-section="trailers">Trailers</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero" aria-label="Hero"></section>
+        <section id="personagens" aria-label="Personagens"></section>
+        <section id="saga" class="jornada" aria-label="A Saga"></section>
+        <section id="trailers" aria-label="Trailers"></section>
+    </main>
+
+    <script src="src/js/script.js"></script>
+</body>
+</html>
