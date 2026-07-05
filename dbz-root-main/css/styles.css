@@ -135,7 +135,7 @@ body {
 .hero__figure--goku {
     left: 0;
     height: 97vh;
-    transform: translateX(-8%) translateY(4.3%);
+    transform: translateX(-2%) translateY(4.3%);
 }
 
 .hero__figure--freeza {
