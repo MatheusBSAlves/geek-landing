@@ -1,241 +1,197 @@
 # Hero Section — Spec
 
-> Seção 1 do `index.html` (ver `DESIGN.md §7`). **Source-of-truth: os prints da Hero.** Nenhum elemento fora do print foi adicionado. Cópia transcrita literalmente; onde o print é ambíguo, marcado como **Suposição a confirmar** (§7). Cores e fontes usam **apenas tokens do `:root`** definidos em `DESIGN.md §8`.
+> Source-of-truth: os prints da Hero (`hero.png`) + `DESIGN.md`.
+> Restrição: **somente** tokens do `:root` do DESIGN.md. Nenhum elemento fora dos prints.
 
 ---
 
 ## 1. Objetivo
 
-Entregar a primeira dobra do site como um **pôster de confronto**: Goku (esquerda) e Freeza (direita) se encarando e emoldurando o título central "Dragon Ball Z / A Saga de Freeza", sobre um fundo de campo de batalha desolado (destruição de Namekusei). A seção comunica tema, tom épico e convida à rolagem via indicador "Role para começar" (→ `#personagens`).
+Entregar a Hero como um **pôster de abertura** em tela cheia (viewport): um fundo de vídeo (destruição de Namekusei) sob overlay dramático, com **Goku à esquerda** e **Freeza à direita** flutuando (vídeos com blend), e um bloco de título centralizado ao estilo pôster (pill → h1 duas linhas → tagline). Um indicador de scroll no rodapé convida a avançar para a próxima seção.
 
-Estado documentado aqui: **layout estático (repouso)** + **ganchos prontos** para a sequência de scroll descrita em `DESIGN.md §6/§7`. Não define a coreografia GSAP em si — apenas a estrutura, camadas e âncoras que ela vai animar.
+A Hero é a seção 1 da ordem do `index.html` (§7 do DESIGN.md) e precisa estar **pronta para o scroll/sequência** GSAP descrita no DESIGN.md §6, mas o estado-base (sem JS) já deve renderizar completo e legível.
 
 ---
 
 ## 2. Inventário visual (item a item)
 
-Somente o que aparece nos prints. A coluna **Cópia** é transcrição literal.
+Cada item abaixo aparece **literalmente** nos prints. Nada além disto.
 
-### Elementos de texto
+| # | Item | Descrição no print | Origem |
+|---|------|--------------------|--------|
+| 1 | **Fundo** | Planície devastada, montanhas no horizonte, chão rachado com brasas laranjas; céu turbulento em laranja/marrom/dourado com luz difusa central | vídeo |
+| 2 | **Overlay dramático** | Escurecimento geral que garante contraste do texto central e das bordas | CSS |
+| 3 | **Goku (esquerda)** | Super Saiyajin de perfil (cabelo dourado espetado, olhos claros), voltado ao centro; entra pela borda esquerda | vídeo |
+| 4 | **Freeza (direita)** | Forma final (cabeça branca/roxa, olho vermelho) de perfil, voltado ao centro; entra pela borda direita | vídeo |
+| 5 | **Glow do Goku** | Halo/energia junto à figura da esquerda | CSS decorativo |
+| 6 | **Glow do Freeza** | Aura roxa junto à figura da direita | CSS decorativo |
+| 7 | **Pill** | Rótulo em caixa alta "A SAGA LENDÁRIA" em fundo escuro translúcido arredondado, texto laranja | texto |
+| 8 | **Título linha 1** | "Dragon Ball Z" — branco | texto (h1) |
+| 9 | **Título linha 2** | "A Saga de Freeza" — dourado/amarelo | texto (h1) |
+| 10 | **Tagline** | "A BATALHA QUE FORJOU UMA LENDA" — branca, caixa alta, espaçada | texto |
+| 11 | **Rótulo de scroll** | "ROLE PARA COMEÇAR" — branco, caixa alta, espaçado | texto |
+| 12 | **Seta de scroll** | Chevron "˅" dentro de um círculo, laranja | ícone/link |
 
-| # | Elemento | Cópia (literal) | Observação de renderização |
-|---|----------|-----------------|-----------------------------|
-| T1 | Pill / eyebrow | `A Saga Lendária` | Exibida em CAIXA ALTA (via `text-transform`), texto laranja dentro de cápsula escura translúcida com borda suave |
-| T2 | Título — linha 1 (h1) | `Dragon Ball Z` | Branco, peso pesado (Anton), sem caixa alta forçada |
-| T3 | Título — linha 2 (h1) | `A Saga de Freeza` | Dourado/amarelo, mesma fonte da linha 1 |
-| T4 | Tagline | `A batalha que forjou uma lenda` | CAIXA ALTA, branco, letter-spacing amplo, tamanho pequeno |
-| T5 | Rótulo de scroll | `Role para começar` | CAIXA ALTA, letter-spacing. **Cor ambígua no print** → §7 (S3) |
-
-### Elementos gráficos
-
-| # | Elemento | Descrição (do print) |
-|---|----------|----------------------|
-| V1 | Figura Goku | Goku Super Saiyajin (cabelo dourado eriçado), em perfil olhando para o centro, recortado na borda **esquerda** |
-| V2 | Figura Freeza | Freeza (forma final, branco/roxo), em perfil olhando para o centro, recortado na borda **direita** |
-| V3 | Glow do Goku | Halo/aura dourada-alaranjada em torno da figura do Goku |
-| V4 | Glow do Freeza | Halo/aura roxa em torno da figura do Freeza |
-| V5 | Fundo | Campo de batalha desolado: terra escura/queimada, montanhas ao fundo, brasas dispersas, céu dramático em laranja/marrom/dourado |
-| V6 | Ícone chevron | Seta "v" para baixo dentro de círculo com contorno laranja, abaixo do rótulo T5 |
-
-> **Não presentes no print (portanto, não especificados aqui):** navbar, botões/CTA, links de menu, logos, contadores, ornamentos extras. A nav flutuante do `DESIGN.md §4` só aparece **ao rolar** e não faz parte do estado inicial da Hero.
+> **Não presentes nos prints** (portanto **não** incluir): nav/menu, botões/CTA, contadores, ícones sociais, logos de marca, ornamentos extras.
 
 ---
 
-## 3. HTML — árvore e classes
+## 3. HTML — árvore/classes
 
-Árvore de referência (sem código; nomes de classe seguindo a convenção BEM do `DESIGN.md`). A ordem no DOM segue a pilha de camadas da §4.
+Sem código; apenas a árvore de classes e a semântica esperada.
 
 ```
-section.hero#hero
-├── video.hero__bg-video                  ← V5 (fundo)          [camada 1]
-├── div.hero__overlay        [aria-hidden] ← véu dramático       [camada 2]
-├── div.hero__goku-glow      [aria-hidden] ← V3                  [camada 3]
-├── div.hero__freeza-glow    [aria-hidden] ← V4                  [camada 3]
-├── video.hero__figure.hero__figure--goku   ← V1                [camada 4]
-├── video.hero__figure.hero__figure--freeza ← V2                [camada 4]
-├── div.hero__overlay-front  [aria-hidden] ← legibilidade        [camada 5]
-├── div.hero__content                      ← pôster             [camada 6]
-│   ├── span.hero__pill                     ← T1
-│   ├── h1.hero__title
-│   │   ├── span.hero__title-line.hero__title-line--main  ← T2
-│   │   └── span.hero__title-line.hero__title-line--saga  ← T3
-│   └── p.hero__tagline                     ← T4
-└── a.hero__scroll  [href="#personagens"]   ← seta               [camada 7]
-    ├── span.hero__scroll-label             ← T5
-    └── span.hero__scroll-arrow [aria-hidden] ← V6 (chevron/círculo)
+section.hero                          (role de banner/topo; min-height: 100svh)
+├─ div.hero__bg            (aria-hidden)  ← camada de fundo
+│   └─ video.hero__bg-video
+├─ div.hero__overlay       (aria-hidden)  ← véu dramático (atrás das figuras)
+├─ div.hero__figures       (aria-hidden)  ← wrapper das duas figuras + glows
+│   ├─ div.hero__goku-glow      (aria-hidden)
+│   ├─ video.hero__figure.hero__figure--goku
+│   ├─ div.hero__freeza-glow    (aria-hidden)
+│   └─ video.hero__figure.hero__figure--freeza
+├─ div.hero__overlay-front (aria-hidden)  ← véu frontal (sobre figuras, sob o pôster)
+├─ div.hero__poster                       ← bloco de conteúdo central
+│   ├─ span.hero__pill
+│   ├─ h1.hero__title
+│   │   ├─ span.hero__title-line.hero__title-line--main
+│   │   └─ span.hero__title-line.hero__title-line--saga
+│   └─ p.hero__tagline
+└─ a.hero__scroll  (href="#personagens")  ← indicador de scroll
+    ├─ span.hero__scroll-label
+    └─ span.hero__scroll-arrow   (aria-hidden)
 ```
 
-Notas de estrutura:
-- `h1.hero__title` contém **as duas linhas** (T2/T3) como spans irmãos; modificadores `--main`/`--saga` alteram **apenas a cor** (`DESIGN.md §3`).
-- `.hero__scroll` é um **link âncora** para `#personagens` (destino: seção Personagens, `DESIGN.md §7 item 2`).
-- Glows e overlays são puramente decorativos → `aria-hidden="true"`.
-- O `.hero__scroll-arrow` embrulha o chevron (círculo + seta); o círculo pode ser border do próprio span ou um SVG interno — decisão de implementação, não de conteúdo.
+Observações de acessibilidade:
+- Todas as camadas puramente decorativas (bg, overlays, figuras em vídeo, glows, seta gráfica) recebem `aria-hidden="true"`.
+- O h1 é o único heading da seção; a ordem textual acessível é: pill → h1 → tagline → rótulo de scroll.
+- `.hero__scroll` é um link real para `#personagens` (âncora da seção 2).
 
 ---
 
-## 4. Camadas (ordem de empilhamento)
+## 4. Camadas (ordem de empilhamento, de trás para frente)
 
-Do fundo para a frente. Cada camada é isolada por `z-index`/ordem no DOM.
+```
+z0  Fundo            .hero__bg / .hero__bg-video
+z1  Overlay          .hero__overlay              (escurece o fundo)
+z2  Glows + Vídeos   .hero__goku-glow, .hero__freeza-glow,
+                     .hero__figure--goku, .hero__figure--freeza
+z3  Overlay-front    .hero__overlay-front        (unifica tom sob o texto)
+z4  Pôster           .hero__poster               (pill + h1 + tagline)
+z5  Seta             .hero__scroll               (rodapé, centralizada)
+```
 
-| Camada | Elemento(s) | Papel |
-|--------|-------------|-------|
-| 1 — Fundo | `.hero__bg-video` (V5) | Vídeo em loop do campo de batalha; cobre 100% da seção (`object-fit: cover`) |
-| 2 — Overlay | `.hero__overlay` | Véu escuro sobre o fundo para rebaixar o brilho e dar profundidade |
-| 3 — Glows | `.hero__goku-glow` (V3), `.hero__freeza-glow` (V4) | Halos coloridos atrás das figuras (dourado à esquerda, roxo à direita) |
-| 4 — Vídeos das figuras | `.hero__figure--goku` (V1), `.hero__figure--freeza` (V2) | Personagens em vídeo, recortados nas bordas; `mix-blend-mode: screen` (`DESIGN.md §4`) |
-| 5 — Overlay-front | `.hero__overlay-front` | Gradiente/véu **à frente das figuras e atrás do pôster** para garantir legibilidade do título central |
-| 6 — Pôster | `.hero__content` (T1–T4) | Bloco central: pill, título (2 linhas), tagline |
-| 7 — Seta | `.hero__scroll` (T5 + V6) | Indicador de rolagem no rodapé da seção |
-
-> A camada 5 (`overlay-front`) é uma **camada de tratamento/legibilidade**, não um elemento de conteúdo — não adiciona texto nem gráfico visível novo. Está no stack porque foi requisitada; sua intensidade exata é ajuste de implementação (S4).
+- As figuras usam `mix-blend-mode: screen` (DESIGN.md §4) — os glows ficam **atrás** de cada figura para reforçar o halo.
+- O `overlay-front` é sutil: sua função é assentar o texto sobre as figuras sem apagá-las.
 
 ---
 
-## 5. Tokens (somente `:root` do `DESIGN.md §8`)
+## 5. Tokens (cores por elemento) — **apenas `:root`**
 
-Nenhuma cor/fonte nova. Mapeamento por elemento:
+Regra do DESIGN.md: no h1 os modificadores mudam **cor apenas**; a Hero **não** usa Fredoka.
 
-### Cor
+| Elemento | Propriedade | Token |
+|----------|-------------|-------|
+| Fundo base da seção | `background` | `--bg-deep` |
+| Overlay / overlay-front | `background` | `--bg-overlay` |
+| Pill — fundo | `background` | `--accent-star-dim` (ou `--bg-overlay`) |
+| Pill — borda | `border-color` | `--border-subtle` / `--border-strong` |
+| Pill — texto | `color` | `--accent-star` |
+| h1 linha 1 (`--main`) | `color` | `--text-primary` |
+| h1 linha 2 (`--saga`) | `color` | `--cosmic-rose` *(amarelo energia — **não** `--accent-star`)* |
+| Tagline | `color` | `--text-primary` |
+| Rótulo de scroll | `color` | `--text-primary` |
+| Seta / círculo | `color` / `border` | `--accent-star` |
+| Glow Goku | `background` (radial) | `--accent-star-glow` |
+| Glow Freeza | `background` (radial) | `--cosmic-purple` / `--cosmic-purple-dim` |
+| Foco (`:focus-visible` no link) | `outline` | `--ring-focus` |
 
-| Elemento | Token | Valor |
-|----------|-------|-------|
-| Texto da pill (T1) | `--accent-star` | `#ff7a18` |
-| Fundo da pill (T1) | `--bg-overlay` **ou** `--accent-star-dim` → §7 (S2) | `rgba(8,12,28,0.74)` / `rgba(255,122,24,0.12)` |
-| Borda da pill (T1) | `--border-subtle` | `rgba(245,240,232,0.12)` |
-| Título linha 1 (T2) | `--text-primary` | `#f5f0e8` |
-| Título linha 2 (T3) | `--cosmic-rose` | `#ffd23f` |
-| Tagline (T4) | `--text-primary` | `#f5f0e8` |
-| Rótulo scroll (T5) | `--text-primary` (per `DESIGN §4`) **vs.** `--accent-star` (per print) → §7 (S3) | — |
-| Chevron/círculo (V6) | `--accent-star` | `#ff7a18` |
-| Glow Goku (V3) | `--accent-star-glow` | `rgba(255,122,24,0.35)` |
-| Glow Freeza (V4) | `--cosmic-purple` / `--cosmic-purple-dim` | `#6c2bd9` |
-| Overlays (camadas 2 e 5) | `--bg-overlay` / `--bg-deep` | `rgba(8,12,28,0.74)` / `#04060f` |
-| Ring de foco (T5 link) | `--ring-focus` | `rgba(41,194,255,0.55)` |
-
-### Tipografia
+Tipografia (tokens de fonte do `:root`):
 
 | Elemento | Token | Família |
 |----------|-------|---------|
-| h1 (T2 e T3, ambas as linhas) | `--font-hero-stamp` | Anton |
-| Pill (T1) | `--font-hero-saga` | Oswald |
-| Tagline (T4) | `--font-hero-saga` | Oswald |
-| Rótulo scroll (T5) | `--font-hero-saga` | Oswald |
+| `.hero__title` (ambas as linhas) | `--font-hero-stamp` | Anton |
+| `.hero__pill`, `.hero__tagline`, `.hero__scroll-label` | `--font-hero-saga` | Oswald |
 
-### Outros
-- Letter-spacing de labels (T1, T4, T5): `--ls-label` (`0.12em`).
-- Escala fluida de tamanhos: família `clamp(...)` / `--fs-*` (`DESIGN §3`).
-- Easings de movimento (§9): `--ease-out-expo`, `--ease-spring`.
+Utilidades de escala/label (do `:root`): `--fs-2xs … --fs-display` para tamanhos fluidos; `--ls-label: 0.12em` nas labels em caixa alta (pill, tagline, scroll).
 
-> A Hero **não** usa Fredoka (`--font-display`); o h1 permanece em Anton (`DESIGN §3`).
+Motion (do `:root`): `--ease-out-expo` para reveals; `--ease-spring` para o bob da seta.
 
 ---
 
 ## 6. Assets mapeados
 
-Todos obrigatórios. Vídeos com atributos `autoplay loop muted playsinline preload="auto"` e `type="video/mp4"`.
+Todos com `<video autoplay loop muted playsinline preload="auto">`.
 
-| Asset | Caminho | Elemento / classe | Camada |
-|-------|---------|-------------------|--------|
-| Fundo (destruição de Namekusei) | `assets/videos/hero-bg-namekusei.mp4` | `video.hero__bg-video` | 1 |
-| Goku (esquerda, flutuando) | `assets/videos/goku-hero.mp4` | `video.hero__figure--goku` | 4 |
-| Freeza (direita, flutuando) | `assets/videos/freeza-hero.mp4` | `video.hero__figure--freeza` | 4 |
-| Glow do Goku (decorativo) | — (sem arquivo; CSS) | `div.hero__goku-glow` `aria-hidden` | 3 |
-| Glow do Freeza (decorativo) | — (sem arquivo; CSS) | `div.hero__freeza-glow` `aria-hidden` | 3 |
+| Elemento | Classe | Arquivo | type |
+|----------|--------|---------|------|
+| Fundo (destruição de Namekusei) | `.hero__bg-video` | `assets/videos/hero-bg-namekusei.mp4` | `video/mp4` |
+| Goku (esquerda, flutuando) | `.hero__figure--goku` | `assets/videos/goku-hero.mp4` | `video/mp4` |
+| Freeza (direita, flutuando) | `.hero__figure--freeza` | `assets/videos/freeza-hero.mp4` | `video/mp4` |
+| Glow Goku | `.hero__goku-glow` | — (puro CSS, `aria-hidden`) | — |
+| Glow Freeza | `.hero__freeza-glow` | — (puro CSS, `aria-hidden`) | — |
 
-Notas:
-- Os glows são **divs decorativas** (glow via CSS/gradiente radial), sem arquivo de mídia.
-- Fornecer poster/fallback estático para cada vídeo é recomendado (S5) mas não obrigatório por este spec.
-- Lista global de assets: ver `README-ASSETS.md` (`DESIGN §9`).
+> Poster/fallback de imagem para os vídeos: **não** especificado nos prints → ver §7.
 
 ---
 
 ## 7. Suposições a confirmar
 
-| ID | Item | Ambiguidade | Encaminhamento sugerido |
-|----|------|-------------|--------------------------|
-| S1 | Fundo da pill (T1) | No print a cápsula parece **escura translúcida**, não laranja. `DESIGN §4` só fixa o **texto** como `--accent-star` | Confirmar se o fundo é `--bg-overlay` (escuro, como no print) ou `--accent-star-dim` (laranja suave) |
-| S2 | Borda da pill | Print sugere borda dourada/suave; DESIGN cita "borda dourada suave" em Badges/Pills | Confirmar `--border-subtle` vs. borda com tint do `--accent-star` |
-| S3 | Cor do rótulo "Role para começar" (T5) | **Conflito:** print aparenta tom quente/dourado; `DESIGN §4` especifica `--text-primary` (branco) | Confirmar cor. Default deste spec: seguir `DESIGN §4` (branco) até decisão contrária |
-| S4 | Intensidade do `overlay-front` (camada 5) | Não é um elemento visível isolado no print | Ajuste fino de legibilidade na implementação |
-| S5 | Poster/fallback dos vídeos | Não informado | Definir imagem de fallback por vídeo (recomendado) |
-| S6 | Recorte das figuras em telas largas | O quanto Goku/Freeza podem "sangrar" para fora da viewport | Definir limite de bleed lateral |
-
-> Nenhuma suposição adiciona **conteúdo** (texto/elemento) novo — todas tratam de tokens/tratamento de elementos já presentes no print.
+1. **Âncora da seta:** o print mostra só a seta; o destino `#personagens` vem da instrução, não do print. → *Suposição a confirmar* (o alvo/id).
+2. **Caixa alta das labels:** "A SAGA LENDÁRIA", "A BATALHA QUE FORJOU UMA LENDA" e "ROLE PARA COMEÇAR" aparecem em maiúsculas no print; a copy canônica ("A Saga Lendária", "A batalha que forjou uma lenda", "Role para começar") sugere caixa alta via CSS (`text-transform`) e não no conteúdo. → *Suposição a confirmar* (transformar via CSS mantendo o texto em caixa mista no HTML).
+3. **Título "de Freeza" vs "do Freeza":** o print e a copy usam **"A Saga de Freeza"**; o cabeçalho do DESIGN.md diz "do Freeza". Mantido **"de Freeza"** (source = print). → registrado.
+4. **Fundo/poster de fallback dos vídeos** (imagem estática enquanto o vídeo carrega): não visível no print. → *Suposição a confirmar* (usar frame do próprio vídeo).
+5. **Glow do Freeza** — cor exata (roxo) inferida da aura no print; token escolhido `--cosmic-purple`. → confere com o print; sem cor nova.
 
 ---
 
 ## 8. Responsividade
 
-Segue `DESIGN §5` (colapso obrigatório < 768px, sem overflow horizontal).
-
-**Desktop / ≥ 768px (como no print):**
-- Composição freeform: Goku fixado à esquerda, Freeza à direita, ambos recortados nas bordas; pôster centralizado entre eles.
-- `.hero` ocupa ~100vh; conteúdo centralizado vertical e horizontalmente; seta ancorada perto da base.
-- Título em escala grande via `clamp(...)`.
-
-**Mobile / < 768px:**
-- Colapso para **coluna única**, sem overflow horizontal.
-- Figuras Goku/Freeza recuam em prioridade visual (reduzir opacidade/tamanho ou reposicionar atrás do pôster) para não competir com o texto — **sem** remover elementos do print.
-- Título reduz via `clamp(...)`; manter as duas linhas empilhadas.
-- Pill, tagline e seta permanecem centralizados; letter-spacing pode reduzir para caber.
-- Vídeos mantêm `object-fit: cover`; garantir que o texto central fique legível sobre o `overlay-front`.
+- **Desktop (≥ 768px):** layout do print — figuras absolutas nas bordas (Goku esq., Freeza dir.), pôster centralizado; seção em `min-height: 100svh`.
+- **Mobile (< 768px):** conforme DESIGN.md §5 (colapso para coluna única, sem overflow horizontal). O pôster permanece centralizado e prioritário; as figuras reduzem/afastam-se para as bordas ou recuam em opacidade para não competir com o texto (viram fluxo vertical/decorativo). Escalas de fonte já fluidas via `clamp()`.
+- Sem scroll horizontal em nenhuma largura.
+- Seta e labels mantêm `--ls-label` e caixa alta.
 
 ---
 
 ## 9. Comportamentos
 
-### 9.1 Estado estático (repouso — o que o print mostra)
-- Vídeos de fundo e figuras em loop, `muted`/`autoplay`/`playsinline`.
-- Figuras com `mix-blend-mode: screen` sobre glows e fundo.
-- Chevron (V6) com animação sutil de **bob** vertical contínuo (`DESIGN §4`).
-- Foco visível (`:focus-visible`) no link `.hero__scroll` usando `--ring-focus`.
+**Estado estático (sem JS):**
+- Vídeos em loop mudo com autoplay; a seção renderiza completa e legível sem depender de JS.
+- Seta com micro-animação de "bob" (loop vertical) usando `--ease-spring` — decorativa.
 
-### 9.2 Ganchos prontos para scroll (a coreografia mora na §6/§7 do DESIGN)
-- **Entrada em cascata** (stagger) dos itens do pôster: pill → título linha 1 → título linha 2 → tagline → seta, via GSAP + tokens `--stagger-*`, easing `--ease-out-expo`.
-- **Parallax leve** nas figuras/glows conforme scroll/cursor (composição freeform, `DESIGN §4`).
-- `.hero__scroll` como link âncora: clique rola suavemente para `#personagens`.
-- Elementos animados marcados com `will-change: transform, opacity` (`DESIGN §6`).
+**Pronto para o scroll (§6/§7 do DESIGN.md):**
+- A Hero deve suportar a sequência GSAP + ScrollTrigger (reveal em cascata do pôster; parallax leve das figuras). Elementos animados usam `transform`/`opacity` + `will-change`.
+- O link `.hero__scroll` faz scroll suave até a seção seguinte (`#personagens`).
 
-### 9.3 Acessibilidade e reduced-motion
-- `@media (prefers-reduced-motion: reduce)`: neutralizar bob, parallax e cascata; exibir estado estático.
-- Alternativa a autoplay de vídeo em reduced-motion: pausar/usar poster estático (recomendado).
-- Glows/overlays `aria-hidden="true"`.
-- `h1` é o único heading nível 1 da página; pill e tagline são texto de apoio (não headings).
+**Reduced motion (`prefers-reduced-motion: reduce`):**
+- Neutraliza o bob da seta e reveals; vídeos podem congelar/parar. Layout permanece estático e legível.
 
 ---
 
 ## 10. Checklist de implementação
 
-- [ ] `section.hero#hero` presente e com altura ~100vh.
-- [ ] `video.hero__bg-video` → `assets/videos/hero-bg-namekusei.mp4` com `autoplay loop muted playsinline preload="auto"`.
-- [ ] `.hero__figure--goku` → `assets/videos/goku-hero.mp4` (mesmos atributos).
-- [ ] `.hero__figure--freeza` → `assets/videos/freeza-hero.mp4` (mesmos atributos).
-- [ ] `mix-blend-mode: screen` nas duas figuras.
-- [ ] `.hero__goku-glow` e `.hero__freeza-glow` presentes, decorativos (`aria-hidden`), cores `--accent-star-glow` / `--cosmic-purple`.
-- [ ] `.hero__overlay` (camada 2) e `.hero__overlay-front` (camada 5) presentes.
-- [ ] Ordem de camadas 1→7 respeitada.
-- [ ] Pill com texto exato `A Saga Lendária`, fonte Oswald, texto `--accent-star`.
-- [ ] `h1` com linhas exatas `Dragon Ball Z` (branco, `--text-primary`) e `A Saga de Freeza` (dourado, `--cosmic-rose`), ambas Anton.
-- [ ] Tagline exata `A batalha que forjou uma lenda`, Oswald, `--text-primary`.
-- [ ] `.hero__scroll` com rótulo exato `Role para começar`, `href="#personagens"`, chevron em círculo `--accent-star` + bob.
-- [ ] Apenas tokens do `:root` (nenhuma cor/fonte hardcoded fora deles).
-- [ ] Colapso mobile em coluna única, sem overflow horizontal.
-- [ ] `prefers-reduced-motion` tratado.
-- [ ] `:focus-visible` no link de scroll com `--ring-focus`.
-- [ ] Suposições S1–S6 resolvidas ou registradas.
+- [ ] `min-height: 100svh`, sem overflow horizontal.
+- [ ] Camadas na ordem da §4 (bg → overlay → glows+figuras → overlay-front → pôster → seta).
+- [ ] 3 vídeos com `autoplay loop muted playsinline preload="auto"` e `type="video/mp4"`.
+- [ ] Figuras com `mix-blend-mode: screen`; glows atrás de cada figura.
+- [ ] h1 inteiro em Anton (`--font-hero-stamp`); linha 1 `--text-primary`, linha 2 `--cosmic-rose`.
+- [ ] Pill/tagline/scroll em Oswald (`--font-hero-saga`); caixa alta via CSS + `--ls-label`.
+- [ ] Pill laranja (`--accent-star`); seta/círculo laranja (`--accent-star`).
+- [ ] Todas as camadas decorativas com `aria-hidden`; único heading = h1.
+- [ ] Link da seta → `#personagens`, com `:focus-visible` usando `--ring-focus`.
+- [ ] Nenhum elemento fora dos prints (sem nav, botões, ícones extras).
+- [ ] Apenas tokens do `:root`; nenhuma cor/fonte nova.
 
 ---
 
-## 11. Aceitação
+## 11. Critérios de aceitação
 
-A implementação é aceita quando:
-
-1. **Fidelidade ao print:** pill, título (2 linhas), tagline, seta e as duas figuras aparecem com o mesmo posicionamento e hierarquia do print — sem nenhum elemento extra (botão, nav, badge, ícone) que não esteja no print.
-2. **Cópia idêntica:** todos os textos batem literalmente com a §2 (respeitando caixa alta aplicada por CSS, não no conteúdo).
-3. **Cores e fontes:** cada elemento usa o token da §5; título linha 2 é `--cosmic-rose` (dourado), **não** `--accent-star`; h1 inteiro em Anton; pill/tagline/scroll em Oswald.
-4. **Assets:** os três vídeos carregam dos caminhos da §6 com os atributos obrigatórios; glows são decorativos e `aria-hidden`.
-5. **Camadas:** empilhamento fundo → overlay → glows → vídeos → overlay-front → pôster → seta, com o pôster legível sobre as figuras.
-6. **Responsivo:** em < 768px, coluna única sem overflow; texto legível.
-7. **Movimento:** cascata de entrada, bob do chevron e parallax presentes; tudo neutralizado sob `prefers-reduced-motion`.
-8. **Scroll:** o link da seta leva a `#personagens`.
-9. **Suposições:** S1–S6 estão resolvidas ou explicitamente registradas como pendências; nenhuma virou conteúdo inventado.
+1. **Fidelidade ao print:** posição de Goku (esq.) e Freeza (dir.), pôster central, seta ao rodapé — todos correspondem ao `hero.png`.
+2. **Copy exata:** "A Saga Lendária", "Dragon Ball Z", "A Saga de Freeza", "A batalha que forjou uma lenda", "Role para começar".
+3. **Cores por elemento:** linha 1 branca, linha 2 dourada (`--cosmic-rose`), pill e seta laranja — batendo com a §5.
+4. **Tipografia:** h1 em Anton nas duas linhas; pill/tagline/scroll em Oswald.
+5. **Assets:** os 3 vídeos mapeados nos caminhos da §6, com atributos obrigatórios; glows presentes e decorativos.
+6. **Acessibilidade:** decorativos ocultos ao leitor de tela; heading único; link de scroll navegável por teclado com anel de foco.
+7. **Responsivo:** coluna única em < 768px, sem overflow horizontal.
+8. **Restrição respeitada:** nenhum elemento inventado; somente tokens do `:root`.

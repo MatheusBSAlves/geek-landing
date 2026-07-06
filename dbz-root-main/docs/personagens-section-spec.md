@@ -1,213 +1,289 @@
-# Personagens — Section Spec
-
-> **Source of truth:** os prints da seção `Personagens`.
-> **Regras de estilo:** `DESIGN.md` (somente tokens do `:root`; nenhuma cor/fonte nova).
-> **Restrição dura:** não inventar botões, textos, ícones ou estados que não aparecem no print. Copy exata.
-> Este documento **não** gera código de implementação — descreve o contrato de markup, camadas e tokens.
-
----
-
-## 1. Objetivo
-
-Reproduzir fielmente a seção **Personagens** como aparece no print: um **header centralizado** (eyebrow + título + subtítulo) e **9 figuras de personagens "flutuando no espaço"** sobre um **data-grid/radar de fundo** animado por JS.
-
-A composição das figuras é **freeform (anti-grid)**: cada personagem tem coordenadas próprias, escalas e alturas variadas, posicionamento **absoluto** e parallax no scroll — conforme `DESIGN.md §4 (Personagens)` e `§5 (Layout)`. Não é grid, não é mosaico, não são cards.
-
-O que **existe** no print e deve ser reproduzido: header (3 linhas de texto), 9 figuras com legenda, grade de fundo, blips amarelos e um glow difuso.
-O que **não existe** e não deve ser criado: botões, links, filtros, tabs, ícones, cards com moldura, contadores.
-
----
-
-## 2. Inventário (o que o print contém)
-
-**Header (copy exata, uppercase conforme fornecido):**
-
-| Papel | Texto |
-|-------|-------|
-| eyebrow | `OS GUERREIROS Z` |
-| título (h2) | `Personagens` |
-| subtítulo | `OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI` |
-
-**9 figuras (imagem + legenda):**
-
-| # (DOM) | Classe modificadora | Asset | `<figcaption>` / `alt` |
-|--------|---------------------|-------|------------------------|
-| 1 | `personagem--goku` | `assets/images/goku-perso.png` | `Goku` |
-| 2 | `personagem--vegeta` | `assets/images/vegeta-perso.png` | `Vegeta` |
-| 3 | `personagem--gohan` | `assets/images/gohan-perso.png` | `Gohan` |
-| 4 | `personagem--kuririn` | `assets/images/kuririn-perso.png` | `Kuririn` |
-| 5 | `personagem--ginyu` | `assets/images/ginyu-perso.png` | `Capitão Ginyu` |
-| 6 | `personagem--freeza` | `assets/images/freeza-perso.png` | `Freeza` |
-| 7 | `personagem--piccolo` | `assets/images/piccolo-perso.png` | `Piccolo` |
-| 8 | `personagem--dodoria` | `assets/images/dodoria-perso.png` | `Dodoria` |
-| 9 | `personagem--zarbon` | `assets/images/zarbon-perso.png` | `Zarbon` |
-
-**Ordem no DOM** = a ordem acima (= `DESIGN.md §7`), independente da posição visual. Todo `<img>` usa `loading="lazy"`.
-
-**Fundo:** grade quadriculada (radar) + blips amarelos + glow difuso (preenchidos por JS; container vazio no HTML).
-
----
-
-## 3. HTML (árvore / classes)
-
-Contrato de markup — nomes de classe e hierarquia obrigatórios. Sem estilos inline; apenas estrutura.
-
-```
-section#personagens.personagens
-├── div.personagens__particles-bg            ← camada de fundo (radar)
-│   └── div#personagens-grid.personagens__grid   ← container VAZIO (JS preenche grade + blips)
-│
-├── header.personagens__header               ← header centralizado
-│   ├── p.personagens__eyebrow    → "OS GUERREIROS Z"
-│   ├── h2.personagens__title     → "Personagens"
-│   └── p.personagens__subtitle   → "OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI"
-│
-└── div.personagens__stage                   ← palco freeform (position: relative)
-    ├── figure.personagem.personagem--goku
-    │   ├── img.personagem__img  [src=assets/images/goku-perso.png · alt="Goku" · loading="lazy"]
-    │   └── figcaption.personagem__name → "Goku"
-    ├── figure.personagem.personagem--vegeta   → …/vegeta-perso.png · "Vegeta"
-    ├── figure.personagem.personagem--gohan    → …/gohan-perso.png · "Gohan"
-    ├── figure.personagem.personagem--kuririn  → …/kuririn-perso.png · "Kuririn"
-    ├── figure.personagem.personagem--ginyu    → …/ginyu-perso.png · "Capitão Ginyu"
-    ├── figure.personagem.personagem--freeza   → …/freeza-perso.png · "Freeza"
-    ├── figure.personagem.personagem--piccolo  → …/piccolo-perso.png · "Piccolo"
-    ├── figure.personagem.personagem--dodoria  → …/dodoria-perso.png · "Dodoria"
-    └── figure.personagem.personagem--zarbon   → …/zarbon-perso.png · "Zarbon"
-```
-
-Regras do markup:
-- Cada `figure.personagem` é posicionada com `position: absolute` no `.personagens__stage`. Coordenadas/escala vivem na classe modificadora `--NOME` (ver §5).
-- `.personagens__stage` é `position: relative` e serve de referência de coordenadas.
-- Nenhum outro elemento além dos listados. Sem wrappers de card, sem botões, sem ícones.
-
----
-
-## 4. Camadas (empilhamento, de trás para frente)
-
-1. **Grade de fundo** — `.personagens__particles-bg > #personagens-grid`
-   Ocupa 100% da seção (absoluto/inset 0), `z-index` mais baixo, `pointer-events: none`. JS desenha as células do radar (pulso a partir do centro), o glow que segue o cursor e os blips amarelos. No HTML fica **vazio**.
-2. **Header** — `.personagens__header`
-   Centralizado no topo da seção, acima da grade. É o único texto de bloco da seção.
-3. **Stage / figuras** — `.personagens__stage` com as 9 `figure`
-   Camada superior. Cada figura tem seu próprio `z-index` (ver tabela §5) para sobreposições sutis de profundidade; parallax aplicado via `transform`.
-
-Ordem de leitura (acessibilidade) segue o DOM da §3, não a posição visual.
-
----
-
-## 5. Tokens & posicionamento
-
-### 5.1 Tokens consumidos (todos do `:root` do `DESIGN.md` — nenhum novo)
-
-| Uso | Token |
-|-----|-------|
-| Fundo da seção | `--bg-deep` / `--bg-mid` |
-| Título `Personagens` | `--font-display` (Fredoka, 600–700) + `--text-primary` |
-| Eyebrow `OS GUERREIROS Z` | `--font-body` (Outfit), caixa alta, `--ls-label` + `--accent-star` |
-| Subtítulo | `--font-body`, caixa alta, `--ls-label` + `--text-muted` |
-| Linhas da grade | `--border-subtle` (base) / `--border-strong` (destaque) |
-| Blips do radar | `--cosmic-rose` (Amarelo Energia `#ffd23f`) |
-| Glow que segue o cursor | `--cosmic-cyan` (ou `--accent-star`) + `--accent-star-glow` para halo — ver Suposição §6 |
-| Halo/drop-shadow das figuras | `--accent-star-glow` |
-| Foco `:focus-visible` | `--ring-focus` |
-| Easing/entradas | `--ease-out-expo`, `--ease-spring`, `--stagger-*` |
-
-### 5.2 Coordenadas das figuras (anti-grid)
-
-Valores **relativos ao `.personagens__stage`** (`left`/`top` em % do palco). Derivados do arranjo do print; são **valores de partida ajustáveis** — o que é canônico é a **posição relativa** (quem está à esquerda/direita, quem está mais alto/baixo) e a **variação de escala**, não o pixel exato.
-
-| Personagem | Quadrante | left | top | escala | tier | z-index | parallax (sugestão) |
-|-----------|-----------|------|-----|--------|------|---------|---------------------|
-| Goku | superior-esquerdo | 14% | 10% | 1.00 | B | 3 | médio |
-| Gohan | superior-central | 46% | 20% | 0.85 | C | 4 | rápido |
-| Vegeta | superior-direito | 76% | 12% | 1.00 | B | 3 | médio |
-| Capitão Ginyu | meio-esquerdo | 12% | 42% | 1.15 | A | 2 | lento |
-| Zarbon | central | 44% | 50% | 1.05 | B | 3 | médio |
-| Kuririn | meio-direito | 74% | 40% | 0.80 | C | 4 | rápido |
-| Dodoria | inferior-esquerdo | 15% | 70% | 1.00 | B | 2 | lento |
-| Freeza | inferior-central | 47% | 74% | 0.85 | C | 3 | médio |
-| Piccolo | inferior-direito | 72% | 64% | 1.20 | A | 2 | lento |
-
-**Três tiers de escala distintos** (satisfaz o requisito ≥3):
-- **A (maior, 1.15–1.20):** Capitão Ginyu, Piccolo
-- **B (médio, 1.00–1.05):** Goku, Vegeta, Zarbon, Dodoria
-- **C (menor, 0.80–0.85):** Gohan, Kuririn, Freeza
-
-**Quebra de grade (por que não parece grid):**
-- Dentro de cada banda vertical, os `top` são diferentes entre si (ex.: banda superior 10 / 20 / 12; central 42 / 50 / 40; inferior 70 / 74 / 64) — nenhuma linha alinhada.
-- Os `left` das "colunas" também são escalonados (14/12/15 · 46/44/47 · 76/74/72), evitando alinhamento vertical perfeito.
-- Escala + `z-index` variados dão profundidade, reforçando o "flutuando no espaço".
-
-Parallax: mapear "rápido/médio/lento" para velocidades diferentes por profundidade (figuras menores/à frente movem mais; maiores/ao fundo movem menos, ou vice-versa — decidir na implementação). Animar só `transform`/`opacity`, `will-change: transform`.
-
----
-
-## 6. Suposições
-
-1. **`id` da seção** = `personagens` (não visível no print; escolhido para navegação/âncora, coerente com `DESIGN.md §7`).
-2. **Glow verde do print × paleta:** o print mostra a grade e o glow com tom **esverdeado**, mas o `:root` do `DESIGN.md` **não tem token verde**. Como a regra é "só tokens do `:root`", o glow/grade devem usar um acento existente — recomendação: `--cosmic-cyan` (Azul Ki) para o glow do cursor e `--cosmic-rose` para os blips (que já são amarelos no print). **Pendência a confirmar** com o dono do design: manter o verde (exigiria novo token, fora da regra) ou padronizar em cyan/orange.
-3. **Coordenadas/escala da §5.2** são valores de partida derivados do arranjo do print; o print governa a **posição relativa** e a **variação**, não o pixel exato. Ajuste fino esperado na implementação.
-4. **`alt`** de cada `<img>` = o nome do personagem (igual ao `figcaption`).
-5. **Ordem no DOM** segue a lista da §2/§3 (ordem de leitura/acessibilidade); a posição visual vem do CSS absoluto.
-6. **Case do texto:** a copy foi fornecida em caixa alta e é reproduzida literalmente; se preferir texto natural + `text-transform: uppercase`, o resultado renderizado deve ser idêntico ao print.
-7. **Header** sem CTA/scroll indicator (isso pertence à Hero, `DESIGN.md §4`); aqui só as 3 linhas de texto.
-
----
-
-## 7. Responsividade
-
-**Desktop (≥ 768px):** composição freeform com `position: absolute`, escalas variadas, parallax e grade animada (comportamento do print).
-
-**Mobile (< 768px)** — conforme `DESIGN.md §5` ("personagens viram fluxo vertical", "sem overflow horizontal"):
-- Desativar posicionamento absoluto: as 9 `figure` colapsam para **coluna única** em fluxo vertical, na ordem do DOM.
-- Neutralizar as escalas divergentes (aproximar de 1.0) e centralizar cada figura; sem sobreposição.
-- Grade de fundo simplificada/atenuada (densidade menor), mantendo o clima sem custo de performance.
-- Header permanece centralizado, com escala fluida via `clamp(...)`.
-- `@media (prefers-reduced-motion: reduce)`: parallax e pulsos da grade neutralizados; layout estático.
-
----
-
-## 8. Trilho (altura para o parallax)
-
-A seção precisa de **folga vertical** para as figuras viajarem em profundidades diferentes sem "grudar" nas bordas durante o scroll (a seção **não** é pinned — só a Saga é, `DESIGN.md §7`).
-
-- `.personagens` / `.personagens__stage`: `min-height` alta o suficiente, ex.: `min-height: clamp(760px, 120vh, 1100px)`.
-- Garantir que os `top` extremos (~10% e ~74% da §5.2) + o deslocamento de parallax caibam dentro do palco sem cortar figuras nem gerar overflow horizontal.
-- Em mobile, `min-height` cede para `auto` (o fluxo vertical define a altura).
-
----
-
-## 9. Checklist de implementação
-
-- [ ] `section#personagens.personagens` criada na ordem correta (2ª seção, `DESIGN.md §7`).
-- [ ] Header com as 3 linhas de copy **exatas** (eyebrow, título, subtítulo).
-- [ ] Eyebrow em `--accent-star`; título em `--font-display` + `--text-primary`; subtítulo em `--text-muted`.
-- [ ] `.personagens__particles-bg > #personagens-grid` presente e **vazio** (JS preenche).
-- [ ] As **9** `figure.personagem.personagem--NOME` presentes, na ordem do DOM da §3.
-- [ ] Cada `<img>` com `src` correto, `alt` = nome e `loading="lazy"`.
-- [ ] Cada `<figcaption>` com a legenda exata (atenção: **"Capitão Ginyu"**).
-- [ ] Posicionamento **absoluto** por figura (nenhum `display: grid`/`flex` de mosaico no stage).
-- [ ] ≥3 tiers de escala aplicados (A/B/C da §5.2).
-- [ ] Parallax só em `transform`/`opacity`, com `will-change`.
-- [ ] Somente tokens do `:root` do `DESIGN.md`; nenhuma cor/fonte hardcoded nova.
-- [ ] `min-height` do stage suficiente para o parallax (§8).
-- [ ] Mobile: colapso para coluna única, sem overflow horizontal.
-- [ ] `prefers-reduced-motion`: animações neutralizadas.
-- [ ] Nenhum botão/ícone/link/card inventado.
-
----
-
-## 10. Aceitação (anti-regressão)
-
-Bloqueadores — a seção **falha** se qualquer item abaixo não passar:
-
-- [ ] **Não é grid.** Nenhum `display: grid`/mosaico/coluna regular governa as figuras; posicionamento é absoluto e individual.
-- [ ] **Espalhados em quadrantes diferentes.** As 9 figuras ocupam quadrantes distintos (superior/meio/inferior × esquerda/centro/direita), como na §5.2 — não há aglomeração em um só canto.
-- [ ] **≥3 escalas distintas.** Pelo menos três tamanhos claramente diferentes coexistem (tiers A/B/C).
-- [ ] **Variação vertical clara.** Os `top` variam dentro de cada banda (nenhuma "linha" de personagens alinhada horizontalmente); a leitura é de figuras flutuando em alturas diferentes.
-
-Aceitação de conteúdo:
-- [ ] Copy do header idêntica ao print (sem acréscimos).
-- [ ] 9 figuras com assets, legendas e ordem corretos.
-- [ ] Grade/blips/glow presentes via container de fundo; nenhum elemento fora do inventário (§2).
+# Spec: Seção "Personagens" — DBZ / Saga do Freeza
+
+> **Source-of-truth:** os prints da seção Personagens. Nada fora deles foi inventado (sem botões, filtros, ícones ou textos extras). Copy transcrita exatamente como aparece.
+> **Design system:** tipografia, texto, acentos das figuras e blips usam tokens do `:root` (`DESIGN.md` §8). O fundo **Blueprint Mesh** (21st.dev) usa tokens **escopados** em `.personagens` (`--personagens-blueprint-*`) — ver §5.2.
+
+---
+
+## 1. Objetivo
+
+Renderizar a segunda seção da página (§7 do `DESIGN.md`, item 2): um **header** curto (eyebrow + título + subtítulo) sobre um **data-grid animado de fundo** (Blueprint Gradient Mesh adaptado de [21st.dev](https://21st.dev)), com as **9 figuras** dos personagens dispostas em **composição freeform** — posicionamento absoluto, escalas e alturas variadas, com efeito de "flutuar no espaço".
+
+Explicitamente **anti-grid**: não é mosaico, não é galeria de cards, não usa `display:grid`/`flex` para alinhar os personagens. Cada figura tem coordenadas próprias.
+
+O fundo é composto por **camadas CSS + três `<canvas>`** preenchidos em runtime por `js/personagens-blueprint.js`: grade quadriculada em movimento diagonal, célula interativa que segue o cursor, film grain e blips amarelos estáticos em CSS.
+
+---
+
+## 2. Inventário (extraído dos prints)
+
+**Header**
+- Eyebrow (linha pequena, caixa alta, acento): `OS GUERREIROS Z`
+- Título (grande, Fredoka): `Personagens`
+- Subtítulo (linha pequena abaixo, caixa alta suave): `OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI`
+
+**Fundo (Blueprint Mesh — implementação atual)**
+- Base navy profunda (`#0d2b4d`) cobrindo toda a seção.
+- Spotlight radial azul suave no topo (CSS).
+- Grade quadriculada animada em movimento **diagonal** (canvas).
+- Vignette radial nas bordas (canvas) + gradiente inferior (CSS).
+- Célula iluminada que acompanha o cursor — fill, borda e glow azulados (canvas).
+- Film grain sutil animado (canvas).
+- Blips pontuais amarelos (dois pontos, CSS em `.personagens__grid::before/::after`).
+
+**Figuras (9), com legenda visível em cada uma:**
+
+| # | Classe modificadora | Imagem | Legenda (figcaption) |
+|---|---------------------|--------|----------------------|
+| 1 | `personagem--goku`    | `assets/images/goku-perso.png`    | Goku |
+| 2 | `personagem--vegeta`  | `assets/images/vegeta-perso.png`  | Vegeta |
+| 3 | `personagem--gohan`   | `assets/images/gohan-perso.png`   | Gohan |
+| 4 | `personagem--kuririn` | `assets/images/kuririn-perso.png` | Kuririn |
+| 5 | `personagem--ginyu`   | `assets/images/ginyu-perso.png`   | Capitão Ginyu |
+| 6 | `personagem--freeza`  | `assets/images/freeza-perso.png`  | Freeza |
+| 7 | `personagem--piccolo` | `assets/images/piccolo-perso.png` | Piccolo |
+| 8 | `personagem--dodoria` | `assets/images/dodoria-perso.png` | Dodoria |
+| 9 | `personagem--zarbon`  | `assets/images/zarbon-perso.png`  | Zarbon |
+
+> Nada além disso aparece nos prints. **Não** há botões, tabs, contadores, badges de status, cards com borda, tooltips textuais nem descrições por personagem. Não adicionar.
+
+---
+
+## 3. HTML (árvore / classes)
+
+Estrutura canônica (implementada em `index.html`):
+
+```
+<section id="personagens" class="personagens">
+  │
+  ├── <div class="personagens__particles-bg" aria-hidden="true">
+  │     ├── <div class="personagens__blueprint">
+  │     │     ├── <div class="personagens__blueprint-spotlight">
+  │     │     ├── <canvas class="personagens__blueprint-grid">
+  │     │     ├── <canvas class="personagens__blueprint-hover">
+  │     │     ├── <canvas class="personagens__blueprint-noise">
+  │     │     └── <div class="personagens__blueprint-vignette">
+  │     └── <div id="personagens-grid" class="personagens__grid">   (vazio; blips via CSS)
+  │
+  ├── <header class="personagens__header">
+  │     ├── <p  class="personagens__eyebrow">OS GUERREIROS Z</p>
+  │     ├── <h2 class="personagens__title">Personagens</h2>
+  │     └── <p  class="personagens__subtitle">OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI</p>
+  │
+  └── <div class="personagens__stage">
+        ├── <figure class="personagem personagem--goku"> …
+        ├── … (9 figuras, ver §2)
+        └── <figure class="personagem personagem--zarbon"> …
+```
+
+**Scripts** (ordem no `<body>`, antes de `</body>`):
+
+```
+<script src="./js/personagens-blueprint.js"></script>
+<script src="./js/script.js"></script>
+```
+
+`script.js` chama `initPersonagensBlueprint()` no `DOMContentLoaded`.
+
+Regras de marcação:
+- Cada personagem é **um** `<figure class="personagem personagem--NOME">` com exatamente um `<img loading="lazy">` e um `<figcaption>`.
+- `alt` da imagem = a legenda do personagem.
+- A ordem no DOM segue a tabela da §2 (Goku → Zarbon), independente da posição visual (a posição vem do CSS por modificador).
+- Os `<canvas>` ficam **vazios** no HTML — desenhados em runtime pelo JS.
+- `#personagens-grid` permanece **vazio** no HTML — os blips amarelos são renderizados via `::before` / `::after` em CSS.
+
+---
+
+## 4. Camadas (empilhamento / z-index)
+
+Do fundo para a frente:
+
+| z-index | Elemento | Conteúdo |
+|--------:|----------|----------|
+| 0 | `.personagens` | Fundo sólido `--personagens-blueprint-bg` |
+| 0 | `.personagens__particles-bg` | Container absoluto; `pointer-events: none` |
+| 0 | `.personagens__blueprint-spotlight` | Radial gradient CSS (spotlight superior) |
+| 1 | `.personagens__blueprint-grid` | Canvas — grade + vignette radial |
+| 2 | `.personagens__blueprint-hover` | Canvas — célula do cursor (`pointer-events: none`) |
+| 3 | `.personagens__blueprint-noise` | Canvas — film grain |
+| 4 | `.personagens__blueprint-vignette` | Gradiente inferior CSS |
+| 5 | `.personagens__grid` | Blips amarelos (`--cosmic-rose`) via pseudo-elementos |
+| 2 | `.personagens__stage` | Palco freeform; `pointer-events: none` |
+| — | `.personagem` | Cada figura: `pointer-events: auto` (foco/acessibilidade) |
+| 3 | `.personagens__header` | Eyebrow + título + subtítulo |
+
+**Pointer events**
+- Rastreio do cursor: `mousemove` / `mouseleave` em `#personagens` (JS), não nos canvas — permite hover no fundo mesmo com figuras por cima.
+- `.personagens__stage` com `pointer-events: none`; `.personagem` com `pointer-events: auto`.
+- O glow do cursor é puramente decorativo e passa por baixo das figuras.
+
+---
+
+## 5. Tokens
+
+### 5.1 Globais (`:root` — `DESIGN.md` §8)
+
+**Tipografia**
+- `.personagens__eyebrow` → `--font-body` (Outfit), caixa alta, `letter-spacing: --ls-label (0.12em)`, cor `--accent-star` (Laranja Goku).
+- `.personagens__title` → `--font-display` (**Fredoka**), peso 600–700, cor `--text-primary`. (Título de seção ⇒ Fredoka. Anton é **exclusivo da Hero**.)
+- `.personagens__subtitle` → `--font-body` (Outfit), caixa alta suave, cor `--text-faint`, `letter-spacing: --ls-label`.
+- `.personagem__nome` (figcaption) → `--font-body` (Outfit), peso 600, cor `--text-primary`, caixa alta com `--ls-label`.
+
+**Figuras**
+- Halos/drop-shadow: `--accent-star-glow` em `.personagem__img`.
+- Foco: `--ring-focus` em `.personagem:focus-visible`.
+
+**Blips**
+- `.personagens__grid::before/::after` → `--cosmic-rose` (Amarelo Energia) + glow derivado.
+
+**Motion**
+- Flutuação/reveals via `--ease-out-expo`; animar apenas `transform` e `opacity`; `will-change` nos elementos flutuantes.
+
+### 5.2 Escopados — Blueprint Mesh (`.personagens`)
+
+Tokens exclusivos da seção, derivados do componente **Blueprint Gradient Mesh** (21st.dev). Definidos em `css/styles.css`:
+
+| Token | Valor canônico | Uso |
+|-------|----------------|-----|
+| `--personagens-blueprint-bg` | `#0d2b4d` | Fundo base navy |
+| `--personagens-blueprint-spotlight` | `rgba(122, 162, 255, 0.18)` | Spotlight radial CSS |
+| `--personagens-blueprint-line` | `rgba(179, 205, 255, 0.28)` | Linhas da grade (canvas) |
+| `--personagens-blueprint-hover-fill` | `rgba(33, 82, 131, 0.18)` | Preenchimento da célula hover |
+| `--personagens-blueprint-hover-stroke` | `rgba(172, 193, 255, 0.70)` | Borda da célula hover |
+| `--personagens-blueprint-hover-glow` | `rgba(122, 162, 255, 0.30)` | Glow da célula hover |
+| `--personagens-blueprint-vignette` | `rgba(13, 43, 77, 0.92)` | Vignette inferior CSS |
+
+> **Nota:** cores do canvas estão duplicadas no objeto `config` de `js/personagens-blueprint.js` (valores espelhados da tabela acima). Ao alterar a paleta, atualizar **CSS e JS** juntos.
+
+**Posições dos blips** (CSS, `.personagens__grid`):
+- `::before` → `top: 34%`, `left: 22%`
+- `::after` → `top: 62%`, `right: 28%`
+
+---
+
+## 6. Blueprint Mesh — JS (`js/personagens-blueprint.js`)
+
+Adaptação vanilla do componente React `blueprint-gradient-mesh.tsx` (21st.dev). **Não** requer React, Tailwind ou shadcn.
+
+**Entry point:** `initPersonagensBlueprint()` — chamado em `script.js` no `DOMContentLoaded`.
+
+**Configuração runtime** (`config`):
+
+| Parâmetro | Valor | Descrição |
+|-----------|-------|-----------|
+| `showGrid` | `true` | Exibe grade quadriculada |
+| `direction` | `"diagonal"` | Direção do scroll da grade (`right` \| `left` \| `up` \| `down` \| `diagonal`) |
+| `speed` | `0.2` | Velocidade do offset (px/frame) |
+| `squareSize` | `44` | Tamanho da célula em px |
+| `borderColor` | ver §5.2 | Cor das linhas |
+| `vignette` | `true` | Vignette radial desenhada no canvas da grade |
+| `hoverFillColor` | ver §5.2 | Fill da célula sob o cursor |
+| `hoverStrokeColor` | ver §5.2 | Borda da célula |
+| `hoverGlowColor` | ver §5.2 | Shadow blur da célula |
+| `noiseRefresh` | `2` | Regenera grain a cada N frames |
+| `noiseAlpha` | `12` | Opacidade do grain (0–255) |
+
+**Loops canvas** (via `requestAnimationFrame`):
+1. `drawGrid` — linhas verticais/horizontais sincronizadas com `gridOffset`.
+2. `drawHover` — destaca a célula sob o cursor (sincronizada com o mesmo offset).
+3. `tickOffset` — avança `gridOffset` na direção configurada.
+4. `noiseLoop` — film grain aleatório em canvas 1024×1024 esticado à seção.
+
+**HiDPI:** `setHiDPICanvas` limita DPR a `min(2, devicePixelRatio)`.
+
+**Eventos:**
+- `mousemove` em `#personagens` → calcula célula (`gx`, `gy`) a partir do offset da grade.
+- `mouseleave` em `#personagens` → limpa hover.
+- `resize` em `window` → redimensiona canvases de grade/hover e noise.
+
+**Escopo:** fundo contido em `.personagens__blueprint` (`absolute inset-0`), **não** `fixed` na viewport inteira (diferença em relação ao demo React original).
+
+---
+
+## 7. Layout da seção
+
+### 7.1 Trilho (altura)
+
+- `.personagens` → `min-height: clamp(140vh, 165vh, 190vh)` — espaço vertical para composição freeform.
+- `.personagens__stage` → `min-height: clamp(95vh, 115vh, 135vh)` — referência para `position: absolute` das figuras.
+
+### 7.2 Composição freeform (desktop ≥ 768px)
+
+Cada `.personagem--NOME` tem coordenadas, escala (`--personagem-h`), z-index e delays de animação próprios em `css/styles.css`. Invariantes:
+
+- **≥ 3 escalas distintas** entre as 9 figuras.
+- **Quadrantes diferentes** — figuras espalhadas, não alinhadas em linha.
+- **Variação vertical** — tops/bottoms distintos; sensação de flutuação (`personagem-float` + `personagem-reveal` em cascata).
+
+---
+
+## 8. Responsividade
+
+- **Desktop (≥ 768px):** composição freeform com posicionamento absoluto por modificador; blueprint ativo.
+- **Mobile (< 768px):** colapso para **coluna única** — `.personagem` vira `position: relative`, empilhado, sem overflow horizontal; header no topo; blueprint de fundo continua.
+- **Reduced motion** (`prefers-reduced-motion: reduce`):
+  - Figuras: apenas `personagem-reveal-static` (sem flutuação).
+  - Blueprint: offset da grade e refresh do noise **pausados**; grade e grain permanecem estáticos na primeira frame.
+
+---
+
+## 9. Arquivos
+
+| Arquivo | Papel |
+|---------|-------|
+| `index.html` | Markup da seção + scripts |
+| `css/styles.css` | Tokens blueprint, camadas, header, stage, composição freeform |
+| `js/personagens-blueprint.js` | Canvas: grade, hover, noise, offset animado |
+| `js/script.js` | Bootstrap: `initPersonagensBlueprint()` |
+
+---
+
+## 10. Checklist de implementação
+
+- [x] `<section id="personagens" class="personagens">` presente e na ordem 2 do `index.html`.
+- [x] Fundo blueprint: `.personagens__particles-bg` > `.personagens__blueprint` (spotlight + 3 canvas + vignette) + `#personagens-grid` (blips CSS).
+- [x] `js/personagens-blueprint.js` carregado antes de `script.js`.
+- [x] Header com **copy exata**: eyebrow `OS GUERREIROS Z`, título `Personagens`, subtítulo `OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI`.
+- [x] Título em **Fredoka** (`--font-display`), não Anton.
+- [x] 9 `<figure class="personagem personagem--NOME">`, cada uma com `<img loading="lazy">` + `<figcaption>`.
+- [x] Caminhos de imagem: `assets/images/{goku,vegeta,gohan,kuririn,ginyu,freeza,piccolo,dodoria,zarbon}-perso.png`.
+- [x] Legendas exatas, incluindo `Capitão Ginyu`.
+- [x] `alt` = legenda em cada `<img>`.
+- [x] Tokens globais do `:root` para tipografia, figuras e blips.
+- [x] Tokens `--personagens-blueprint-*` escopados para o fundo mesh.
+- [x] Sem botões/tabs/badges/descrições extras.
+- [x] `min-height` da seção alta o bastante para a composição (§7.1).
+- [x] Mobile: coluna única, sem overflow horizontal.
+- [x] `prefers-reduced-motion`: animações de figuras e blueprint neutralizadas.
+
+---
+
+## 11. Aceitação — bloco anti-regressão
+
+**Anti-grid (obrigatório):**
+- [x] **Não é grid:** `.personagens__stage` **não** usa `display:grid` nem `display:flex` para alinhar personagens.
+- [x] **Espalhados em quadrantes diferentes:** 9 figuras em posições distintas.
+- [x] **≥ 3 escalas distintas** via `--personagem-h` por modificador.
+- [x] **Variação vertical clara** — tops/bottoms diferentes.
+
+**Fundo blueprint:**
+- [x] Grade animada diagonal visível em toda a seção.
+- [x] Célula iluminada segue o cursor (sync com offset da grade).
+- [x] Film grain sutil presente.
+- [x] Blips amarelos (`--cosmic-rose`) nos dois pontos definidos em §5.2.
+
+**Fidelidade ao print:**
+- [x] Copy do header idêntica.
+- [x] Exatamente 9 personagens com legendas e imagens da §2.
+- [x] Nenhum elemento inventado (botão/ícone/texto extra).
+
+---
+
+## 12. Histórico de decisões
+
+| Data | Decisão |
+|------|---------|
+| — | Fundo original previsto: radar CSS (grade estática + sweep cônico). |
+| 2026-07 | Substituído por **Blueprint Gradient Mesh** (21st.dev), portado para vanilla JS com canvas. |
+| 2026-07 | Tentativa de paleta verde radar (`#576E49`) — **revertida**; paleta navy azulada mantida (§5.2). |
+
