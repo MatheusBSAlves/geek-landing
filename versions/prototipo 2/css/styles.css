@@ -1,0 +1,2487 @@
+:root {
+    /* Fonte Outfit (carregue via Google Fonts ou self-host; variáveis abaixo) */
+    --font-outfit: "Outfit", ui-sans-serif, system-ui, sans-serif;
+    --font-body: var(--font-outfit);
+    --font-display: var(--font-outfit);
+    /* Hero cinematográfico: carimbo condensado + saga gravada épica. */
+    --font-hero-stamp: "Anton", ui-sans-serif, system-ui, sans-serif;
+    --font-hero-saga: "Oswald", "Outfit", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+    --fw-black: 900;
+  
+    --fs-2xs: clamp(0.6875rem, 0.65rem + 0.2vw, 0.75rem);
+    --fs-xs: clamp(0.75rem, 0.72rem + 0.25vw, 0.8125rem);
+    --fs-sm: clamp(0.8125rem, 0.78rem + 0.35vw, 0.9375rem);
+    --fs-md: clamp(0.9375rem, 0.9rem + 0.4vw, 1.0625rem);
+    --fs-lg: clamp(1.0625rem, 0.98rem + 0.55vw, 1.25rem);
+    --fs-xl: clamp(1.25rem, 1.05rem + 1vw, 1.5rem);
+    --fs-2xl: clamp(1.5rem, 1.2rem + 1.35vw, 1.875rem);
+    --fs-3xl: clamp(1.875rem, 1.35rem + 2vw, 2.375rem);
+    --fs-display: clamp(2.375rem, 1.65rem + 3.5vw, 3.5rem);
+  
+    --lh-none: 1;
+    --lh-tight: 1.15;
+    --lh-snug: 1.25;
+    --lh-body: 1.55;
+    --lh-relaxed: 1.65;
+  
+    --ls-tight: -0.02em;
+    --ls-normal: 0;
+    --ls-wide: 0.04em;
+    --ls-label: 0.12em;
+  
+    --measure-reading: min(68ch, 100%);
+  
+    /* Cores (Dragon Ball Z / Saga do Freeza) */
+    --bg-deep: #04060f;
+    --bg-mid: #0a1228;
+    --bg-surface: #121a3a;
+    --bg-surface-raised: #1a2350;
+    --bg-overlay: rgba(8, 12, 28, 0.74);
+  
+    --text-primary: #f5f0e8;
+    --text-muted: rgba(247, 243, 232, 0.64);
+    --text-faint: rgba(245, 240, 232, 0.48);
+  
+    --accent-star: #ff7a18;
+    --accent-star-dim: rgba(255, 122, 24, 0.12);
+    --accent-star-glow: rgba(255, 122, 24, 0.35);
+  
+    --cosmic-cyan: #29c2ff;
+    --cosmic-cyan-dim: rgba(41, 194, 255, 0.16);
+  
+    --cosmic-purple: #6c2bd9;
+    --cosmic-purple-dim: rgba(108, 43, 217, 0.22);
+  
+    --cosmic-rose: #ffd23f;
+    --cosmic-rose-dim: rgba(255, 210, 63, 0.18);
+  
+    --border-subtle: rgba(245, 240, 232, 0.12);
+    --border-strong: rgba(245, 240, 232, 0.22);
+  
+    --ring-focus: rgba(41, 194, 255, 0.55);
+  
+    --gradient-cosmic: linear-gradient(
+      145deg,
+      #0a1228 0%,
+      #121a3a 38%,
+      #241160 65%,
+      #07142e 100%
+    );
+  
+    --gradient-star-halo: radial-gradient(
+      circle at 30% 20%,
+      rgba(108, 43, 217, 0.45),
+      transparent 55%
+    );
+  
+    --gradient-accent-ribbon: linear-gradient(
+      90deg,
+      var(--cosmic-purple) 0%,
+      var(--cosmic-rose) 45%,
+      var(--accent-star) 100%
+    );
+  
+    /* Spacing */
+    --space-0: 0;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+  
+    --space-gutter-x: clamp(1rem, 4vw, 2.5rem);
+    --space-section-y: clamp(3.5rem, 8vw, 7.5rem);
+    --space-hero-offset: clamp(4rem, 12vw, 9rem);
+  
+    /* Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+  
+    /* Sombras — discretas, sem glow externo agressivo */
+    --shadow-surface: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 12px 40px rgba(0, 0, 0, 0.45);
+    --shadow-raised: 0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 18px 48px rgba(0, 0, 0, 0.55);
+    --shadow-inner-glow: inset 0 1px 0 rgba(41, 194, 255, 0.12),
+      inset 0 -1px 0 rgba(108, 43, 217, 0.18);
+    --shadow-star-inner: inset 0 0 0 1px rgba(255, 122, 24, 0.25),
+      inset 0 0 24px rgba(255, 122, 24, 0.08);
+    --shadow-card: var(--shadow-surface), var(--shadow-inner-glow);
+  
+    /* Motion */
+    --ease-linear: linear;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out-soft: cubic-bezier(0.45, 0, 0.55, 1);
+  
+    --duration-instant: 75ms;
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 400ms;
+    --duration-slower: 600ms;
+  
+    --stagger-tight: 40ms;
+    --stagger-base: 70ms;
+    --stagger-loose: 110ms;
+  
+    --transition-color: color var(--duration-fast) var(--ease-out-expo),
+      background-color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo);
+    --transition-transform: transform var(--duration-base) var(--ease-out-expo);
+    --transition-opacity: opacity var(--duration-fast) var(--ease-out-expo);
+    --transition-shadow: box-shadow var(--duration-slow) var(--ease-out-expo);
+    --transition-micro: transform var(--duration-fast) var(--ease-spring),
+      opacity var(--duration-fast) var(--ease-out-expo);
+  
+    --motion-reduce: 0.01ms;
+
+    /* Blur para superfícies com backdrop-filter (nav flutuante) */
+    --backdrop-blur-floating: 14px;
+
+    /* Fundo particles.js — seção Personagens (tema escuro por padrão no site) */
+    --particles-dot: #ff7a18;
+    --particles-line: #ffbe3a;
+    --particles-accent: #ffd23f;
+    --particles-bg-from: #04060f;
+    --particles-bg-via: #160e22;
+    --particles-bg-to: #2e1606;
+    /* Camada semi-opaca sobre o gradiente — mantém o campo de energia escuro */
+    --particles-bg-scrim: rgba(6, 4, 12, 0.5);
+  }
+
+  html[data-theme="light"] {
+    --particles-dot: #0277bd;
+    --particles-line: #0288d1;
+    --particles-accent: #039be5;
+    --particles-bg-from: #e3f2fd;
+    --particles-bg-via: #90caf9;
+    --particles-bg-to: #64b5f6;
+    --particles-bg-scrim: rgba(0, 38, 78, 0.18);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /*
+   * Vídeo de fundo da página inteira. Fica abaixo do starfield (que é desenhado
+   * depois no DOM) e do #conteudo-principal (z-index: 1). A animação de zoom-in
+   * com fade no scroll é controlada por GSAP em initBackgroundVideoZoom().
+   */
+  .page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .page-bg__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+
+  /*
+   * Vinheta vertical presa à viewport (acompanha o scroll): degradê escuro
+   * só em cima e embaixo, centro transparente para o Goku aparecer limpo.
+   * Fica sobre o vídeo, mas as demais seções (z-index 1) cobrem a page-bg,
+   * então a vinheta some sozinha ao sair do hero.
+   */
+  .page-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(4, 6, 15, 0.92) 0%,
+      rgba(4, 6, 15, 0) 30%,
+      rgba(4, 6, 15, 0) 70%,
+      rgba(4, 6, 15, 0.92) 100%
+    );
+  }
+
+  /* Acima do fundo do body; conteúdo em #conteudo-principal fica por cima (z-index: 1). */
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-body);
+    color: var(--text-primary);
+    background-color: var(--bg-deep);
+  }
+
+  /* Empilha a página sobre o canvas do starfield (evita canvas com z-index negativo atrás do body). */
+  #conteudo-principal {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 190vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-inline: var(--space-gutter-x);
+    padding-block: 0;
+    text-align: center;
+    /* Transparente para o starfield aparecer (o body já garante fundo cósmico). */
+    background-color: transparent;
+    overflow: clip;
+  }
+
+  .hero__media-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero__media-layer video {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+  }
+
+  /*
+   * Planeta: ancora ao fim da 1ª dobra mesmo com hero alta (ex.: 150vh).
+   * calc(100% - 100svh) ≈ espaço hero abaixo de uma viewport; metade cortada mantém translateY(50%).
+   */
+  .hero__planet {
+    left: 50%;
+    bottom: max(0px, calc(100% - 100svh));
+    z-index: 0;
+    width: min(236vw, 2240px);
+    max-height: min(124vh, 1480px);
+    transform: translate(-50%, 50%);
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  /* Goku — meio/esquerda flutuante */
+  .hero__goku {
+    left: clamp(0rem, 1.5vw, 2rem);
+    top: clamp(7%, 10vh, 15%);
+    z-index: 2;
+    width: clamp(120px, 24vw, 230px);
+    height: auto;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  /* Vegeta — meio/direita, espelhado para olhar ao centro */
+  .hero__vegeta {
+    right: clamp(0rem, 1.5vw, 2rem);
+    top: clamp(7%, 10vh, 15%);
+    z-index: 2;
+    width: clamp(120px, 24vw, 180px);
+    height: auto;
+    object-fit: contain;
+    object-position: right center;
+    transform: scaleX(-1);
+  }
+
+  /* Lumas — esquerda, direita e centro inferior (spec §2). */
+  .hero__star {
+    position: absolute;
+    z-index: 4;
+    width: clamp(32px, 5.5vw, 56px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px var(--accent-star-glow));
+  }
+
+  .hero__star--left {
+    left: clamp(0.75rem, 5vw, 4.5rem);
+    bottom: clamp(16%, 20vh, 30%);
+  }
+
+  .hero__star--right {
+    right: clamp(0.75rem, 5vw, 4.5rem);
+    bottom: clamp(16%, 20vh, 30%);
+  }
+
+  .hero__star--center {
+    left: 50%;
+    bottom: clamp(8%, 10vh, 15%);
+    z-index: 5;
+    width: clamp(26px, 4.25vw, 44px);
+    transform: translateX(-50%);
+  }
+
+  /* Bloqueio ≈ uma viewport para centrar texto/CTA na 1ª dobra (hero pode ser maior). */
+  .hero__content-layer {
+    position: relative;
+    z-index: 10;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: min(100%, 42rem);
+    max-width: 100%;
+    min-height: 100svh;
+    margin-inline: auto;
+    gap: var(--space-2);
+    padding-inline: var(--space-2);
+    padding-block: clamp(2rem, 6vh, var(--space-12));
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  /* Grupo superior (badge + título + subtítulo); CTA fica embaixo e o
+     centro livre deixa o Goku do vídeo de fundo mais visível. */
+  .hero__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  /* Badge — texto --accent-star, fundo --accent-star-dim (spec §5). */
+  .hero__badge {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-label);
+    line-height: var(--lh-none);
+    text-transform: uppercase;
+    color: var(--accent-star);
+    background-color: var(--accent-star-dim);
+    border: 1px solid rgba(255, 122, 24, 0.18);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-star-inner);
+  }
+
+  /*
+   * Título cinematográfico tipo pôster:
+   *  línea1 "Dragon Ball Z" = carimbo condensado (Anton), aço frio.
+   *  línea2 "A Saga do Freeza" = saga épica gravada (Cinzel) com gradiente
+   *  Super Saiyajin (ouro→laranja), aura de energia e brilho metálico.
+   */
+  .hero__title {
+    margin: var(--space-6) 0 var(--space-3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.35rem, 1.2vw, 0.75rem);
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .hero__badge,
+  .hero__subtitle {
+    text-shadow: 0 1px 12px rgba(4, 6, 15, 0.85);
+  }
+
+  /* Linha 1 — carimbo da franquia: condensado, caixa-alta, cores DBZ. */
+  .hero__title-line1 {
+    position: relative;
+    font-family: var(--font-hero-stamp);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 1.1rem + 4.4vw, 4.25rem);
+    text-transform: uppercase;
+    letter-spacing: clamp(0.12em, 0.45vw, 0.22em);
+    text-indent: clamp(0.12em, 0.45vw, 0.22em);
+    word-spacing: -0.22em;
+    line-height: 1;
+    filter: drop-shadow(0 5px 18px rgba(4, 6, 15, 0.8));
+    opacity: 0;
+    transform: translateY(0.7em);
+    animation: hero-title-rise 0.95s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) 0.15s forwards;
+  }
+
+  /* Borda preta de 3px em cada letra (Chrome/Safari/Firefox). */
+  .dbz-word {
+    -webkit-text-stroke: 3px #000;
+    text-stroke: 3px #000;
+  }
+
+  .dbz-word--dragon,
+  .dbz-word--ball {
+    letter-spacing: -2px;
+  }
+
+  .dbz-word--dragon {
+    color: #ffd21e;
+    text-shadow: 0 2px 0 rgba(120, 70, 0, 0.55), 0 0 22px rgba(255, 200, 40, 0.4);
+  }
+
+  .dbz-word--ball {
+    color: #e62222;
+    text-shadow: 0 2px 0 rgba(90, 8, 8, 0.6), 0 0 22px rgba(255, 50, 50, 0.38);
+  }
+
+  .dbz-word--z {
+    color: #e62222;
+    text-shadow: 0 2px 0 rgba(90, 8, 8, 0.6), 0 0 22px rgba(255, 50, 50, 0.38);
+  }
+
+  /* O "O" de Dragon vira a Esfera do Dragão: o gif cobre a letra, recortado
+     em círculo para ler como esfera mesmo que o gif tenha fundo. */
+  .dbz-o {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dbz-o-letter {
+    /* mantém a largura/posição da letra, mas invisível: a esfera a substitui */
+    color: transparent;
+    -webkit-text-stroke-color: transparent;
+  }
+
+  .dbz-o-gif {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    object-fit: cover;
+    pointer-events: none;
+    box-shadow:
+      0 0 18px rgba(255, 150, 40, 0.55),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  /* Régua de energia sob o carimbo. */
+  .hero__title-line1::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.1em;
+    width: clamp(96px, 22vw, 200px);
+    height: 2px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    border-radius: var(--radius-full);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent-star) 25%,
+      var(--cosmic-rose) 50%,
+      var(--accent-star) 75%,
+      transparent 100%
+    );
+    box-shadow: 0 0 14px var(--accent-star-glow);
+    animation: hero-rule-grow 0.8s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) 0.6s forwards;
+  }
+
+  /* Linha 2 — a saga: condensada (Oswald), gradiente Freeza roxo→ciano. */
+  .hero__title-line2 {
+    position: relative;
+    margin-top: clamp(0.3rem, 1.2vw, 0.7rem);
+    font-family: var(--font-hero-saga);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 0.8rem + 4vw, 4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 0.98;
+    background: linear-gradient(
+      102deg,
+      #e3c6ff 0%,
+      #a96bff 24%,
+      #6c2bd9 48%,
+      #2f7dff 74%,
+      #29e0ff 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #000;
+    text-stroke: 2px #000;
+    filter: drop-shadow(0 2px 3px rgba(4, 6, 15, 0.85))
+      drop-shadow(0 0 26px rgba(120, 80, 255, 0.45));
+    opacity: 0;
+    transform: translateY(0.5em) scale(0.97);
+    animation:
+      hero-saga-ignite 1.1s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) 0.42s forwards,
+      hero-freeza-sheen 8s ease-in-out 1.6s infinite;
+  }
+
+  /* Aura de energia pulsante atrás da saga. */
+  .hero__title-line2::before {
+    content: "";
+    position: absolute;
+    inset: -24% -12%;
+    z-index: -1;
+    background: radial-gradient(
+      ellipse 60% 70% at 50% 50%,
+      rgba(140, 90, 255, 0.42) 0%,
+      rgba(41, 194, 255, 0.18) 44%,
+      transparent 72%
+    );
+    filter: blur(15px);
+    opacity: 0;
+    animation:
+      hero-aura-in 1.2s ease-out 0.6s forwards,
+      hero-aura-pulse 4.5s ease-in-out 1.8s infinite;
+  }
+
+  @keyframes hero-title-rise {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-saga-ignite {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes hero-rule-grow {
+    to {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+
+  @keyframes hero-freeza-sheen {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes hero-aura-in {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-aura-pulse {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__title-line1,
+    .hero__title-line2,
+    .hero__title-line2::before {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    .hero__title-line1::after {
+      animation: none;
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+
+  .hero__subtitle {
+    margin: 0 0 var(--space-6);
+    max-width: var(--measure-reading);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  /* CTA — fundo azul Ki; ícone claro + play azul. */
+  .hero__cta {
+    position: relative;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin: 0;
+    padding: var(--space-4) var(--space-10);
+    overflow: hidden;
+    appearance: none;
+    border: 1px solid color-mix(in srgb, var(--cosmic-cyan) 80%, transparent);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-normal);
+    line-height: var(--lh-none);
+    color: var(--text-primary);
+    background: linear-gradient(180deg, #2bb4ff 0%, #1483d6 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 var(--space-3) var(--space-10) rgba(0, 0, 0, 0.4);
+    transition: var(--transition-transform), filter var(--duration-fast)
+      var(--ease-out-expo);
+  }
+
+  .hero__cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 42%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      92deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 42%,
+      rgba(255, 255, 255, 0.45) 50%,
+      rgba(255, 255, 255, 0.08) 58%,
+      transparent 100%
+    );
+    transform: translateX(-120%) skewX(-14deg);
+    animation: hero-cta-light-sweep 5s linear infinite;
+  }
+
+  .hero__cta > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__cta:hover {
+    filter: brightness(1.08);
+  }
+
+  .hero__cta:active {
+    transform: scale(0.98);
+    transition-timing-function: var(--ease-linear);
+  }
+
+  .hero__cta:focus-visible {
+    outline: 2px solid var(--ring-focus);
+    outline-offset: 4px;
+  }
+
+  @keyframes hero-cta-light-sweep {
+    0%,
+    86% {
+      transform: translateX(-120%) skewX(-14deg);
+      opacity: 0;
+    }
+    87% {
+      opacity: 1;
+    }
+    97% {
+      transform: translateX(320%) skewX(-14deg);
+      opacity: 1;
+    }
+    98%,
+    100% {
+      transform: translateX(320%) skewX(-14deg);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__cta::before {
+      animation: none;
+    }
+  }
+
+  .hero__cta-icon {
+    flex-shrink: 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: var(--radius-full);
+    background-color: var(--text-primary);
+  }
+
+  .hero__cta-icon::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-inline-start: 2px;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #1483d6;
+  }
+
+  .hero__scroll-indicator {
+    position: relative;
+    z-index: 12;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-6);
+    padding-bottom: clamp(8vh, 12vh, 18vh);
+    pointer-events: none;
+    bottom: 100px;
+  }
+
+  .hero__scroll-text {
+    position: relative;
+    font-family: var(--font-body);
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
+    line-height: var(--lh-none);
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--text-primary) 78%, transparent);
+    text-shadow: 0 1px 10px rgba(4, 6, 15, 0.8);
+  }
+
+  /* Fio de energia descendente sob o rótulo. */
+  .hero__scroll-text::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.85rem);
+    width: 1px;
+    height: 2.4rem;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      var(--accent-star) 0%,
+      color-mix(in srgb, var(--accent-star) 35%, transparent) 60%,
+      transparent 100%
+    );
+    box-shadow: 0 0 8px var(--accent-star-glow);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 100%);
+    animation: hero-scroll-line 2s ease-in-out infinite;
+  }
+
+  @keyframes hero-scroll-line {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scaleY(0.2);
+      transform-origin: top;
+    }
+    35% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scaleY(1);
+      transform-origin: top;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-text::after {
+      animation: none;
+      opacity: 0.7;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .hero__goku,
+    .hero__vegeta {
+      width: clamp(88px, 26vw, 160px);
+      top: clamp(5%, 7vh, 11%);
+      opacity: 0.94;
+    }
+
+    .hero__planet {
+      width: min(256vw, 1280px);
+      bottom: max(0px, calc(100% - 100svh));
+      max-height: min(96vh, 1040px);
+      transform: translate(-50%, 50%);
+    }
+
+    .hero__star--left {
+      left: var(--space-2);
+      bottom: clamp(14%, 18vh, 26%);
+      width: clamp(26px, 7vw, 40px);
+    }
+
+    .hero__star--right {
+      right: var(--space-2);
+      bottom: clamp(14%, 18vh, 26%);
+      width: clamp(26px, 7vw, 40px);
+    }
+
+    .hero__star--center {
+      bottom: clamp(6%, 8vh, 12%);
+      width: clamp(22px, 5.5vw, 34px);
+    }
+
+    .hero__scroll-indicator {
+      padding-bottom: clamp(16vh, 20vh, 26vh);
+    }
+
+    .hero__cta {
+      padding-inline: var(--space-8);
+    }
+  }
+
+  /* Marquee — faixa cósmica acima de personagens (tokens + transform) */
+  .marquee-personagens {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #ff7a18 0%, #ffae3a 50%, #ff7a18 100%);
+    padding: 20px 0;
+  }
+
+  .marquee-personagens__viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .marquee-personagens__track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: max-content;
+    will-change: transform;
+    animation: marquee-personagens-scroll 38s var(--ease-linear) infinite;
+  }
+
+  .marquee-personagens__sequence {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    align-items: center;
+    gap: clamp(var(--space-3), 2.2vw, var(--space-8));
+    padding-block: clamp(var(--space-3), 1.75vw, var(--space-5));
+    padding-inline: clamp(var(--space-2), 1.5vw, var(--space-4));
+    font-family: var(--font-body);
+    font-size: clamp(var(--fs-xs), 0.85rem + 0.65vw, var(--fs-lg));
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    line-height: var(--lh-none);
+    text-transform: uppercase;
+    color: #1a1008;
+    white-space: nowrap;
+  }
+
+  .marquee-personagens__text {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .marquee-personagens__sep {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--fw-bold);
+    color: #1a1008;
+    opacity: 0.85;
+    user-select: none;
+  }
+
+  @keyframes marquee-personagens-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-personagens__track {
+      animation: none;
+      flex-wrap: wrap;
+      row-gap: var(--space-2);
+      width: 100%;
+      max-width: 100%;
+      justify-content: center;
+      transform: none;
+      will-change: auto;
+      padding-block: clamp(var(--space-3), 1.75vw, var(--space-5));
+      padding-inline: var(--space-gutter-x);
+    }
+
+    .marquee-personagens__sequence[aria-hidden="true"] {
+      display: none;
+    }
+
+    .marquee-personagens__sequence {
+      flex-wrap: wrap;
+      justify-content: center;
+      white-space: normal;
+      text-align: center;
+      row-gap: var(--space-2);
+      padding-inline: 0;
+    }
+  }
+
+  /* Personagens — composição freeform (parallax rail: min-height 100vh; sem grid nos personagens) */
+  .personagens {
+    --personagens-stage-min-h: clamp(26rem, 52vh, 38rem);
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-height: 180vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: clamp(var(--space-10), 5vw, var(--space-16));
+    padding-inline: var(--space-gutter-x);
+    overflow-x: clip;
+    background-color: transparent;
+  }
+
+  .personagens__particles-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, var(--particles-bg-scrim), var(--particles-bg-scrim)),
+      linear-gradient(
+        to top right,
+        var(--particles-bg-from) 0%,
+        var(--particles-bg-via) 50%,
+        var(--particles-bg-to) 100%
+      );
+    transition: background 500ms var(--ease-in-out-soft);
+  }
+
+  /* Véu escuro sobre a grade: deixa o fundo mais escuro e destaca os personagens.
+     Fica acima das células, mas abaixo do glow e dos blips (z-index maiores). */
+  .personagens__particles-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(4, 6, 15, 0.5);
+  }
+
+  /* Fundo de grade animada (porte vanilla do data-grid-hero / 21st.dev):
+     células que pulsam a partir do centro + glow que segue o cursor. */
+  .personagens__grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    gap: 5px;
+    pointer-events: none;
+    /* Foca a grade no centro e some nas bordas. */
+    -webkit-mask-image: radial-gradient(125% 95% at 50% 42%, #000 52%, transparent 100%);
+    mask-image: radial-gradient(125% 95% at 50% 42%, #000 52%, transparent 100%);
+  }
+
+  .personagens__grid .grid-cell {
+    border-radius: 2px;
+    background-color: var(--grid-color, #00ff80);
+    opacity: var(--cell-min, 0.05);
+    will-change: opacity;
+  }
+
+  @keyframes cell-pulse {
+    from {
+      opacity: var(--cell-min, 0.05);
+    }
+    to {
+      opacity: var(--cell-max, 0.5);
+    }
+  }
+
+  .personagens__grid-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      220px 220px at var(--mouse-x, -999px) var(--mouse-y, -999px),
+      color-mix(in srgb, #00ff80 55%, transparent) 0%,
+      transparent 72%
+    );
+    mix-blend-mode: screen;
+    transition: opacity 320ms var(--ease-in-out-soft, ease);
+  }
+
+  /* Blips do radar do Dragon Ball: pontinhos amarelos que piscam (1 por esfera). */
+  .personagens__grid-blip {
+    position: absolute;
+    z-index: 3;
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    border-radius: var(--radius-full);
+    background: #ffd23f;
+    box-shadow:
+      0 0 6px 2px rgba(255, 210, 63, 0.85),
+      0 0 16px 5px rgba(255, 160, 24, 0.45);
+    pointer-events: none;
+    animation: radar-blip 1.6s ease-in-out infinite;
+  }
+
+  @keyframes radar-blip {
+    0%,
+    100% {
+      opacity: 0.12;
+      transform: scale(0.6);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .personagens__grid .grid-cell {
+      animation: none !important;
+      opacity: 0.12;
+    }
+
+    .personagens__grid-glow {
+      display: none;
+    }
+
+    .personagens__grid-blip {
+      animation: none;
+      opacity: 0.9;
+    }
+  }
+
+  .personagens__header {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    max-width: min(100%, 52rem);
+    margin-bottom: clamp(var(--space-6), 3.5vw, var(--space-12));
+    text-align: center;
+  }
+
+  .personagens__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--accent-star);
+  }
+
+  .personagens__title {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-extrabold);
+    letter-spacing: var(--ls-tight);
+    line-height: var(--lh-tight);
+    color: var(--text-primary);
+  }
+
+  .personagens__subtitle {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .personagens__stage {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: min(100%, 1400px);
+    min-height: var(--personagens-stage-min-h);
+    margin-inline: auto;
+    flex-shrink: 0;
+  }
+
+  .personagem {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    width: max-content;
+    max-width: min(94vw, 360px);
+  }
+
+  .personagem img {
+    display: block;
+    width: var(--pers-img-w);
+    height: auto;
+    max-width: 100%;
+  }
+
+  .personagem figcaption {
+    margin: var(--space-2) 0 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    text-align: center;
+    color: var(--text-primary);
+  }
+
+  /* Quadrantes distintos: top/left únicos por checklist; escalas grandes / médias / menor */
+  .personagem--goku {
+    
+
+    top: -9%;
+    left: 11%;
+    z-index: 5;
+    animation-delay: calc(var(--stagger-base) * 1);
+  }
+
+  .personagem--vegeta {
+    
+
+    --pers-img-w: clamp(140px, 22vw, 216px);
+    top: -10%;
+    left: 65%;
+    z-index: 4;
+    animation-delay: calc(var(--stagger-base) * 2);
+  }
+
+  .personagem--gohan {
+    --pers-img-w: clamp(150px, 23vw, 234px);
+
+    top: 33%;
+    left: 39%;
+    z-index: 3;
+    animation-delay: calc(var(--stagger-base) * 3);
+  }
+
+  .personagem--kuririn {
+    --pers-img-w: clamp(121px, 14vw, 189px);
+
+    top: 82%;
+    left: 66%;
+    z-index: 6;
+    animation-delay: calc(var(--stagger-base) * 4);
+  }
+
+  .personagem--ginyu {
+    --pers-img-w: clamp(200px, 27vw, 340px);
+
+    top: 94%;
+    left: 8%;
+    z-index: 7;
+    animation-delay: calc(var(--stagger-base) * 5);
+  }
+
+  .personagem--freeza {
+   
+    --pers-img-w: clamp(119px, 20vw, 202px);
+    top: 191%;
+    left: 45%;
+    z-index: 2;
+    animation-delay: calc(var(--stagger-base) * 6);
+  }
+
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .personagens {
+      --personagens-stage-min-h: clamp(23rem, 48vh, 34rem);
+    }
+
+    .personagem--goku {
+      left: 2%;
+      top: 12%;
+    }
+
+    .personagem--vegeta {
+      left: 72%;
+      top: 7%;
+    }
+
+    .personagem--gohan {
+      left: 22%;
+      top: 39%;
+    }
+
+    .personagem--kuririn {
+      left: 62%;
+      top: 41%;
+    }
+
+    .personagem--ginyu {
+      left: 1%;
+      top: 61%;
+      --pers-img-w: clamp(174px, 30vw, 300px);
+    }
+
+    .personagem--freeza {
+      left: 48%;
+      top: 66%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .personagens {
+      justify-content: flex-start;
+      padding-block: clamp(var(--space-10), 6vw, var(--space-16));
+      --personagens-stage-min-h: 0;
+    }
+
+    .personagens__stage {
+      min-height: 0;
+    }
+
+    .personagem {
+      position: relative;
+      inset: auto;
+      width: fit-content;
+      max-width: min(92vw, 22rem);
+      margin-inline-start: auto;
+      margin-inline-end: auto;
+      margin-bottom: clamp(var(--space-10), 6vw, var(--space-16));
+      animation-duration: 640ms;
+    }
+
+    .personagem:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .personagem--goku {
+      top: auto;
+      left: auto;
+      margin-inline-start: 6%;
+      margin-inline-end: auto;
+      --pers-img-w: clamp(160px, 58vw, 240px);
+    }
+
+    .personagem--vegeta {
+      top: auto;
+      left: auto;
+      margin-inline-start: auto;
+      margin-inline-end: 8%;
+      --pers-img-w: clamp(72px, 26vw, 114px);
+    }
+
+    .personagem--gohan {
+      top: auto;
+      left: auto;
+      margin-inline-start: 14%;
+      margin-inline-end: auto;
+      --pers-img-w: clamp(65px, 26vw, 104px);
+    }
+
+    .personagem--kuririn {
+      top: auto;
+      left: auto;
+      margin-inline-start: auto;
+      margin-inline-end: 12%;
+      --pers-img-w: clamp(110px, 43vw, 167px);
+    }
+
+    .personagem--ginyu {
+      top: auto;
+      left: auto;
+      margin-inline-start: 5%;
+      margin-inline-end: auto;
+      --pers-img-w: clamp(180px, 68vw, 280px);
+    }
+
+    .personagem--freeza {
+      top: auto;
+      left: auto;
+      margin-inline-start: auto;
+      margin-inline-end: 14%;
+      --pers-img-w: clamp(63px, 24vw, 103px);
+    }
+  }
+
+  .trailers {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: var(--space-section-y);
+    padding-inline: var(--space-gutter-x);
+    border-top: 1px solid var(--border-subtle);
+    background:
+      radial-gradient(circle at 18% 18%, rgba(255, 122, 24, 0.30), transparent 44%),
+      radial-gradient(circle at 82% 14%, rgba(41, 194, 255, 0.30), transparent 52%),
+      radial-gradient(circle at 50% 100%, rgba(255, 210, 63, 0.16), transparent 50%),
+      linear-gradient(105deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-surface) 100%);
+  }
+
+  .trailers__bg-text {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    z-index: 1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 13vw, 14rem);
+    font-weight: var(--fw-black);
+    line-height: 1;
+    letter-spacing: var(--ls-tight);
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0.06;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .trailers__header {
+    position: relative;
+    z-index: 2;
+    max-width: min(100%, 48rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .trailers__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--accent-star);
+  }
+
+  .trailers__title {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  .trailers__subtitle {
+    margin: 0;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .trailers__carousel {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1000px;
+    margin: clamp(var(--space-8), 5vw, var(--space-16)) auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(var(--space-6), 2.8vw, var(--space-8));
+  }
+
+  .trailers__viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .trailers__track {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transform: translate3d(0, 0, 0);
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+  }
+
+  .trailers__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  .trailers__player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    padding: 2px;
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(
+      120deg,
+      var(--cosmic-cyan) 0%,
+      var(--accent-star) 38%,
+      var(--cosmic-purple) 100%
+    );
+    box-shadow: var(--shadow-card);
+  }
+
+  .trailers__player iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--radius-2xl) - 3px);
+    border: 0;
+    background-color: var(--bg-surface);
+  }
+
+  .trailers__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+  }
+
+  .trailers__arrow {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    background-color: rgba(41, 194, 255, 0.08);
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-xl);
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition-color), var(--transition-transform);
+  }
+
+  .trailers__arrow:hover {
+    color: var(--cosmic-cyan);
+    border-color: var(--cosmic-cyan);
+  }
+
+  .trailers__arrow:active {
+    transform: scale(0.97);
+  }
+
+  .trailers__arrow--next {
+    color: var(--text-primary);
+    border-color: color-mix(in srgb, var(--cosmic-cyan) 72%, var(--border-strong));
+    background-color: color-mix(in srgb, var(--cosmic-cyan) 28%, transparent);
+  }
+
+  .trailers__arrow:focus-visible,
+  .trailers__dot:focus-visible {
+    outline: 2px solid var(--ring-focus);
+    outline-offset: 4px;
+  }
+
+  .trailers__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .trailers__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    background-color: rgba(41, 194, 255, 0.24);
+    cursor: pointer;
+    transition: var(--transition-color), var(--transition-transform);
+  }
+
+  .trailers__dot:hover {
+    border-color: var(--cosmic-cyan);
+    background-color: color-mix(in srgb, var(--cosmic-cyan) 55%, transparent);
+  }
+
+  .trailers__dot.is-active {
+    width: 0.5rem;
+    background-color: var(--cosmic-cyan);
+    border-color: var(--cosmic-cyan);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cosmic-cyan) 26%, transparent);
+  }
+
+  @media (max-width: 1023.98px) {
+    .trailers__bg-text {
+      font-size: clamp(4rem, 16vw, 11rem);
+      opacity: 0.05;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .trailers__bg-text {
+      display: none;
+    }
+
+    .trailers__controls {
+      gap: var(--space-4);
+    }
+
+    .trailers__arrow {
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trailers__track,
+    .trailers__arrow,
+    .trailers__dot {
+      transition-duration: var(--motion-reduce);
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ===== Saga do Freeza - linha do tempo ===== */
+  .saga {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: var(--space-section-y);
+    padding-inline: var(--space-gutter-x);
+    border-top: 1px solid var(--border-subtle);
+    background:
+      radial-gradient(circle at 16% 12%, var(--cosmic-purple-dim), transparent 42%),
+      radial-gradient(circle at 84% 20%, var(--cosmic-cyan-dim), transparent 46%),
+      radial-gradient(circle at 50% 104%, var(--accent-star-dim), transparent 56%),
+      linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, var(--bg-surface) 100%);
+  }
+
+  .saga__nebula {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    width: clamp(14rem, 30vw, 24rem);
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-full);
+    filter: blur(var(--space-2));
+    opacity: 0.5;
+  }
+
+  .saga__nebula--top-left {
+    top: -4rem;
+    left: -4rem;
+    background: radial-gradient(circle at 42% 42%, color-mix(in srgb, var(--cosmic-purple) 62%, transparent), transparent 70%);
+  }
+
+  .saga__nebula--top-right {
+    top: -3rem;
+    right: -4rem;
+    background: radial-gradient(circle at 52% 40%, color-mix(in srgb, var(--cosmic-cyan) 52%, transparent), transparent 70%);
+  }
+
+  .saga__nebula--bottom-left {
+    bottom: -5rem;
+    left: -3rem;
+    background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-star) 44%, transparent), transparent 72%);
+  }
+
+  .saga__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+
+  .saga__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: clamp(var(--space-10), 6vw, var(--space-16));
+    text-align: center;
+  }
+
+  .saga__eyebrow {
+    margin: 0;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--accent-star);
+  }
+
+  .saga__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-black);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  .saga__highlight {
+    background: linear-gradient(95deg, var(--accent-star) 0%, var(--cosmic-rose) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .saga__subtitle {
+    margin: 0;
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .saga__divider {
+    margin-top: var(--space-3);
+    width: var(--space-16);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-star), transparent);
+  }
+
+  .saga__timeline {
+    --rail-x: clamp(0.6rem, 3vw, 1.1rem);
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 46rem;
+  }
+
+  .saga__timeline::before {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: var(--rail-x);
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, var(--cosmic-cyan) 10%, var(--accent-star) 90%, transparent);
+    opacity: 0.65;
+  }
+
+  .saga__item {
+    position: relative;
+    padding-left: calc(var(--rail-x) + clamp(1.5rem, 5vw, 2.75rem));
+    padding-bottom: clamp(var(--space-8), 4vw, var(--space-12));
+  }
+
+  .saga__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Nó da timeline = mini esfera do dragão (webp animado com fundo transparente). */
+  .saga__node {
+    position: absolute;
+    top: 0.05rem;
+    left: var(--rail-x);
+    width: 1.92rem;
+    height: 1.92rem;
+    background: url("../assets/images/esfera-dragao-1estrela.webp") center / contain no-repeat;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 0 8px var(--accent-star-glow));
+  }
+
+  .saga__card {
+    background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: clamp(var(--space-4), 2.5vw, var(--space-6));
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .saga__step {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-label);
+    color: var(--accent-star);
+  }
+
+  .saga__card-title {
+    margin: var(--space-1) 0 var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-snug);
+    color: var(--text-primary);
+  }
+
+  .saga__card-text {
+    margin: 0;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+    color: var(--text-muted);
+  }
+
+  /* Vídeo da "Batalha Final" — playback controlado pelo scroll (ver JS). */
+  .saga__video {
+    display: block;
+    width: 100%;
+    margin-top: var(--space-4);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    background: #000;
+  }
+
+  .saga__footer {
+    position: relative;
+    z-index: 2;
+    margin-top: clamp(var(--space-12), 6vw, var(--space-16));
+    padding-top: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    text-align: center;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .saga__project {
+    margin: 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+  }
+
+  .saga__disclaimer {
+    margin: 0;
+    max-width: min(100%, 70ch);
+    font-size: var(--fs-2xs);
+    line-height: var(--lh-body);
+    color: var(--text-muted);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-gutter-x);
+    background-color: var(--bg-mid);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .section:nth-child(even) {
+    background-color: var(--bg-deep);
+  }
+
+  .section__title {
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-snug);
+    color: var(--text-primary);
+  }
+
+  .section__text {
+    margin: 0;
+    max-width: var(--measure-reading);
+    font-size: var(--fs-md);
+    color: var(--text-muted);
+  }
+
+  /* Floating nav — z-index 100, blur + overlay (tokens) */
+  .floating-nav {
+    position: fixed;
+    top: var(--space-6);
+    left: 50%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-surface), var(--shadow-inner-glow);
+    background-color: var(--bg-surface-raised);
+    backdrop-filter: blur(var(--backdrop-blur-floating));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-floating));
+    isolation: isolate;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-100%);
+
+    transition: var(--transition-transform), var(--transition-opacity),
+      visibility 0ms linear var(--duration-fast);
+  }
+
+  .floating-nav.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+    transition: var(--transition-transform), var(--transition-opacity),
+      visibility 0ms linear 0ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-nav,
+    .floating-nav.visible {
+      transition-duration: var(--motion-reduce);
+      transition-delay: 0ms;
+    }
+  }
+
+  .floating-nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--bg-overlay);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .floating-nav__list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: min(100vw - var(--space-8), 56rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .floating-nav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .floating-nav__item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .floating-nav__link {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-none);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-faint);
+
+    transition: var(--transition-color);
+  }
+
+  .floating-nav__link:hover {
+    color: var(--text-primary);
+  }
+
+  .floating-nav__link.floating-nav__link--active,
+  .floating-nav__link.floating-nav__link--active:hover {
+    color: var(--accent-star);
+  }
+
+  .floating-nav__link:focus {
+    outline: none;
+  }
+
+  .floating-nav__link:focus-visible {
+    outline: 2px solid var(--ring-focus);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .floating-nav__separator {
+    display: block;
+    width: 1px;
+    height: 1.2em;
+    margin-inline: var(--space-3);
+    align-self: center;
+    background-color: var(--border-subtle);
+  }
+
+  @media (max-width: 767.98px) {
+    .floating-nav {
+      top: var(--space-4);
+      padding: var(--space-2) var(--space-3);
+      max-width: calc(100vw - var(--space-6));
+    }
+
+    .floating-nav__link {
+      font-size: var(--fs-2xs);
+    }
+  }
+
+
+  /* 7o personagem: Piccolo */
+  .personagem--piccolo {
+    --pers-img-w: clamp(199px, 26vw, 340px);
+    top: 158%;
+    left: 68%;
+    z-index: 3;
+    animation-delay: calc(var(--stagger-base) * 7);
+  }
+
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .personagem--piccolo {
+      left: 76%;
+      top: 88%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .personagem--piccolo {
+      top: auto;
+      left: auto;
+      margin-inline-start: 12%;
+      margin-inline-end: auto;
+      --pers-img-w: clamp(199px, 71vw, 315px);
+    }
+  }
+
+  /* 8o personagem: Dodoria (capanga do Freeza) */
+  .personagem--dodoria {
+    --pers-img-w: clamp(168px, 22vw, 270px);
+    top: 199%;
+    left: 8%;
+    z-index: 4;
+    animation-delay: calc(var(--stagger-base) * 8);
+  }
+
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .personagem--dodoria {
+      left: 4%;
+      top: 86%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .personagem--dodoria {
+      top: auto;
+      left: auto;
+      margin-inline-start: auto;
+      margin-inline-end: 10%;
+      --pers-img-w: clamp(156px, 58vw, 240px);
+    }
+  }
+
+  /* 10o personagem: Zarbon (capanga do Freeza) */
+  .personagem--zarbon {
+    --pers-img-w: clamp(210px, 27vw, 338px);
+    top: 117%;
+    left: 33%;
+    z-index: 4;
+    animation-delay: calc(var(--stagger-base) * 9);
+  }
+
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .personagem--zarbon {
+      left: 36%;
+      top: 90%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .personagem--zarbon {
+      top: auto;
+      left: auto;
+      margin-inline-start: 8%;
+      margin-inline-end: auto;
+      --pers-img-w: clamp(195px, 72vw, 300px);
+    }
+  }
+
+  /* =========================================================================
+     HERO V1 — fundo de vídeo em loop + overlay dramático
+     (usado em index-v1.html; pinado na viewport via sticky pois a hero é alta)
+     ========================================================================= */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: clip;
+    pointer-events: none;
+  }
+
+  /* Mantém o vídeo do tamanho da viewport e fixo enquanto rola a hero alta. */
+  .hero__bg-inner {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+  }
+
+  .hero__bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Overlay dramático: vinheta + escurecimento topo/base para profundidade e
+     legibilidade, com leve tinta cósmica/laranja por cima. */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(125% 85% at 50% 35%,
+        transparent 0%,
+        rgba(4, 6, 15, 0.04) 55%,
+        rgba(4, 6, 15, 0.14) 100%),
+      linear-gradient(to bottom,
+        rgba(4, 6, 15, 0.10) 0%,
+        transparent 35%,
+        transparent 65%,
+        rgba(4, 6, 15, 0.30) 100%),
+      linear-gradient(120deg,
+        rgba(108, 43, 217, 0.06) 0%,
+        transparent 45%,
+        rgba(255, 122, 24, 0.06) 100%);
+  }
+
+  /* Palco do personagem — pinado na viewport junto com o vídeo de fundo,
+     fica ACIMA do overlay para o Goku aparecer vívido (sem escurecer). */
+  .hero__stage {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: 100svh;
+    pointer-events: none;
+    /* Anula o padding-inline da .hero para o Goku grudar na borda real. */
+    margin-inline: calc(-1 * var(--space-gutter-x));
+  }
+
+  /* Overlay sobre o Goku — versão mais suave que a do cenário:
+     só uma vinheta leve e um respiro escuro na base, sem apagar o personagem. */
+  .hero__overlay--front {
+    background:
+      radial-gradient(120% 90% at 35% 40%,
+        transparent 0%,
+        rgba(4, 6, 15, 0.10) 60%,
+        rgba(4, 6, 15, 0.34) 100%),
+      linear-gradient(to bottom,
+        rgba(4, 6, 15, 0.22) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(4, 6, 15, 0.55) 100%);
+  }
+
+  /* Goku ancorado à borda esquerda, em altura cheia, como na referência.
+     clip-path corta a faixa branca da direita da imagem (≈ 41% finais). */
+  .hero__figure--goku {
+    position: absolute;
+    left: -20px;
+    bottom: 0;
+    height: min(100%, 96svh);
+    width: auto;
+    object-fit: contain;
+    object-position: left bottom;
+    /* Vídeo de fundo preto sólido: "screen" zera o preto (fica transparente)
+       e deixa só o Goku brilhante sobre o vídeo de fundo. Sem precisar de alpha. */
+    mix-blend-mode: screen;
+    /* Corta a base do frame onde fica a marca d'água "XingAi 3.0"... */
+    clip-path: inset(0 0 5% 0);
+    /* ...e empurra pra baixo o mesmo tanto, pra grudar na base sem vão. */
+    transform: translateY(5%);
+    /* Contraste/saturação compensam o leve "lavado" inerente ao screen. */
+    filter: contrast(1.12) saturate(1.15) drop-shadow(0 8px 40px rgba(255, 180, 40, 0.28));
+    /* O screen levanta o preto do frame, então a borda direita do vídeo vira
+       uma linha vertical fina sobre o cenário. Esmaece essa borda interna. */
+    -webkit-mask-image: linear-gradient(to right, #000 76%, transparent 96%);
+    mask-image: linear-gradient(to right, #000 76%, transparent 96%);
+  }
+
+  /* Mancha escura atrás do Goku — torna o screen "sólido" naquela região. */
+  .hero__goku-glow {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(58%, 40rem);
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(
+      66% 72% at 30% 60%,
+      rgba(4, 6, 15, 0.82) 0%,
+      rgba(4, 6, 15, 0.58) 42%,
+      rgba(4, 6, 15, 0.22) 66%,
+      transparent 82%
+    );
+  }
+
+  /* Freeza ancorado à borda direita, espelhando o Goku (encara o centro). */
+  .hero__figure--freeza {
+    position: absolute;
+    right: -140px;
+    bottom: 0;
+    /* Maior que o Goku no enquadramento original do vídeo, então ampliado
+       pra que os dois personagens fiquem do mesmo tamanho aparente. */
+    height: min(106%, 102svh);
+    width: auto;
+    object-fit: contain;
+    object-position: right bottom;
+    /* Mesmo tratamento do Goku: remove o fundo preto do vídeo. */
+    mix-blend-mode: screen;
+    clip-path: inset(0 0 5% 0);
+    /* O recuo inicial de 30% pra direita é aplicado pelo GSAP (xPercent: 30 no
+       início da timeline) pra não dobrar com o transform do CSS — ver initHeroScroll. */
+    transform: translateY(27%);
+    filter: contrast(1.12) saturate(1.12) drop-shadow(0 8px 40px rgba(170, 70, 220, 0.30));
+    /* Mesma correção do Goku, mas a borda interna do Freeza é a esquerda. */
+    -webkit-mask-image: linear-gradient(to left, #000 76%, transparent 96%);
+    mask-image: linear-gradient(to left, #000 76%, transparent 96%);
+  }
+
+  /* Mancha escura atrás do Freeza — deixa o screen "sólido" naquela região. */
+  .hero__freeza-glow {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: min(58%, 40rem);
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(
+      66% 72% at 70% 60%,
+      rgba(4, 6, 15, 0.82) 0%,
+      rgba(4, 6, 15, 0.58) 42%,
+      rgba(4, 6, 15, 0.22) 66%,
+      transparent 82%
+    );
+  }
+
+  @media (max-width: 767.98px) {
+    .hero__figure--goku,
+    .hero__figure--freeza {
+      height: min(100%, 64svh);
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+     HERO V1 — Título cinematográfico (estilo logo DBZ / Saga do Freeza)
+     ------------------------------------------------------------------------- */
+  .hero__title-wrap {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    width: min(92%, 60rem);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: var(--lh-none);
+  }
+
+  /* "DRAGON BALL Z" — carimbo condensado dourado acima do nome */
+  .hero__title-kicker {
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-bold);
+    font-size: clamp(0.9rem, 0.6rem + 1.6vw, 1.6rem);
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    text-transform: uppercase;
+    color: var(--cosmic-rose);
+    text-shadow: 0 0 18px rgba(255, 210, 63, 0.45);
+    margin-bottom: clamp(0.5rem, 1.2vw, 0.9rem);
+  }
+
+  .hero__title-z {
+    color: var(--accent-star);
+    text-shadow: 0 0 22px var(--accent-star-glow);
+  }
+
+  /* "A Saga de" — manuscrito épico, leve inclinação, em Oswald */
+  .hero__title-saga {
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-medium);
+    font-style: italic;
+    font-size: clamp(1.1rem, 0.7rem + 2.2vw, 2.2rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-shadow: 0 2px 16px rgba(4, 6, 15, 0.85);
+    transform: rotate(-3deg);
+    margin-bottom: clamp(-0.4rem, -1vw, -0.2rem);
+  }
+
+  /* "FREEZA" — peça principal: metal dourado→laranja, contorno e brilho */
+  .hero__title-name {
+    position: relative;
+    font-family: var(--font-hero-stamp);
+    font-weight: 400;
+    font-size: clamp(3.5rem, 1.5rem + 13vw, 11rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 0.9;
+    background: linear-gradient(
+      180deg,
+      #fff3c4 0%,
+      var(--cosmic-rose) 34%,
+      var(--accent-star) 64%,
+      #b3470a 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.55));
+  }
+
+  /* Camada de contorno + halo cósmico atrás do gradiente do nome */
+  .hero__title-name::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    -webkit-text-stroke: clamp(2px, 0.5vw, 6px) #1a0d2e;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow:
+      0 0 28px rgba(255, 122, 24, 0.55),
+      0 0 60px rgba(108, 43, 217, 0.45);
+  }
+
+  /* Tagline abaixo do nome */
+  .hero__title-tag {
+    margin: clamp(0.6rem, 1.6vw, 1.2rem) 0 0;
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-medium);
+    font-size: clamp(0.7rem, 0.55rem + 0.7vw, 1rem);
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-shadow: 0 2px 12px rgba(4, 6, 15, 0.9);
+  }
+
+  @media (max-width: 767.98px) {
+    .hero__title-wrap {
+      top: 42%;
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+     HERO V2 — Título estilo "pôster" (inspirado no titulo.png), tema DBZ
+     pill + 2 linhas grandes arredondadas (branca + dourada) + subtítulo
+     ------------------------------------------------------------------------- */
+  .hero__poster {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    width: min(92%, 64rem);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  /* Pill/badge: "A Saga Lendária" */
+  .hero__poster-badge {
+    display: inline-block;
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-bold);
+    font-size: clamp(0.72rem, 0.55rem + 0.7vw, 1rem);
+    letter-spacing: 0.26em;
+    text-indent: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent-star);
+    padding: 0.55em 1.4em;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 210, 63, 0.45);
+    background: rgba(4, 6, 15, 0.55);
+    box-shadow:
+      0 0 24px rgba(255, 122, 24, 0.25),
+      inset 0 0 18px rgba(255, 210, 63, 0.10);
+    backdrop-filter: blur(4px);
+    margin-bottom: clamp(1rem, 2.4vw, 1.8rem);
+  }
+
+  .hero__poster-title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Fredoka", var(--font-base);
+    font-weight: 700;
+    line-height: 0.98;
+    text-transform: none;
+  }
+
+  .hero__poster-line {
+    font-size: clamp(2.6rem, 1rem + 9vw, 7.5rem);
+    letter-spacing: -0.01em;
+  }
+
+  /* Variante compacta (usada no v1): ~30% menor que o pôster padrão. */
+  .hero__poster--compact .hero__poster-line {
+    font-size: clamp(1.82rem, 0.7rem + 6.3vw, 5.25rem);
+  }
+
+  /* Linha de cima — branca sólida, como no "Super Mario" */
+  .hero__poster-line--top {
+    color: #fdfdff;
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.25),
+      0 6px 30px rgba(4, 6, 15, 0.7),
+      0 0 40px rgba(120, 170, 255, 0.2);
+  }
+
+  /* Linha de baixo — amarelo claro e legível (como o "Galaxy: O Filme") */
+  .hero__poster-line--bottom {
+    color: #ffd23f;
+    text-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.7),
+      0 3px 2px rgba(0, 0, 0, 0.5),
+      0 0 28px rgba(255, 180, 40, 0.35);
+  }
+
+  .hero__poster-tag {
+    margin: clamp(0.9rem, 2vw, 1.6rem) 0 0;
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-semibold);
+    font-size: clamp(0.72rem, 0.55rem + 0.7vw, 1.05rem);
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    text-transform: uppercase;
+    /* Creme quente + sombra densa: legível mesmo sobre o céu claro do fundo. */
+    color: #f7ecd2;
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.92),
+      0 2px 12px rgba(4, 6, 15, 0.95);
+  }
+
+  @media (max-width: 767.98px) {
+    .hero__poster {
+      top: 42%;
+    }
+  }
+
+  /* Indicador "Role para começar" + seta com bob suave, fixo na base da hero. */
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(2rem, 5vh, 4rem);
+    z-index: 4;
+    transform: translateX(-50%);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    pointer-events: auto;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+  }
+
+  .hero__scroll:hover {
+    color: var(--accent-star);
+  }
+
+  .hero__scroll-label {
+    font-family: var(--font-hero-saga);
+    font-weight: var(--fw-semibold);
+    font-size: clamp(0.7rem, 0.55rem + 0.55vw, 0.9rem);
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(4, 6, 15, 0.9);
+  }
+
+  .hero__scroll-arrow {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 210, 63, 0.5);
+    background: rgba(4, 6, 15, 0.4);
+    box-shadow: 0 0 18px rgba(255, 122, 24, 0.25);
+    color: var(--accent-star);
+    backdrop-filter: blur(3px);
+    animation: hero-scroll-bob 1.8s ease-in-out infinite;
+  }
+
+  @keyframes hero-scroll-bob {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-arrow {
+      animation: none;
+    }
+  }
