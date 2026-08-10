@@ -1,464 +1,573 @@
-/* ── Tokens da Jornada (A Saga) ── */
-:root {
-  --jornada-gap: clamp(1.5rem, 4vw, 3rem);
-  --jornada-panel-width: clamp(18rem, 28vw, 26rem);
-  --jornada-card-radius: 1rem;
-  --jornada-media-ratio: 16 / 10;
-  --jornada-media-radius: 0.75rem;
-  --jornada-desc-maxw: 38ch;
-  --jornada-rail-weight: 2px;
-  --jornada-dot-size: clamp(0.625rem, 1.2vw, 0.875rem);
-  --jornada-hud-maxw: min(56rem, calc(100% - var(--space-gutter-x) * 2));
-  --jornada-numeral-opacity: 0.06;
-  --jornada-numeral-size: clamp(8rem, 22vw, 16rem);
-  --jornada-numeral-size-mobile: clamp(4rem, 18vw, 7rem);
-  --jornada-kanji-opacity: 0.04;
-  --jornada-parallax-strength: 0.35;
-  --jornada-scrub-lerp: 1;
-  --jornada-reveal-y: 1.5rem;
-  --jornada-timeline-mobile: none;
-  --jornada-fs-heading: clamp(1.25rem, 2.2vw, 1.75rem);
-  --jornada-fs-desc: clamp(0.8125rem, 1.1vw, 0.9375rem);
-  --jornada-fs-counter: clamp(1rem, 1.8vw, 1.375rem);
-  --stagger-sm: 0.06s;
-  --stagger-md: 0.12s;
-  --stagger-lg: 0.18s;
-  --space-section-y: clamp(3rem, 8vh, 5rem);
+/* ============================================================================
+   A JORNADA EM NAMEKUSEI — scroll horizontal (exclusivo do index-v2.html)
+   ----------------------------------------------------------------------------
+   - Namespacing .jornada__* para NÃO colidir com a saga compartilhada (.saga__*)
+     que continua valendo no index.html e no index-v3.html.
+   - Usa os tokens globais do :root definidos em css/styles.css.
+   - Padrão (sem JS / mobile / prefers-reduced-motion) = empilhamento vertical
+     legível. .jornada.is-horizontal (adicionada via JS no desktop) liga o
+     trilho horizontal com pin do GSAP.
+   ============================================================================ */
+
+.jornada {
+  --jor-rail-y: 11%;
+  --jor-card-top: 36%;
+  --jor-pad: clamp(var(--space-6), 4vw, var(--space-10));
+  --ch-accent: var(--accent-star);
+
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border-top: 1px solid var(--border-subtle);
+  background:
+    radial-gradient(circle at 16% 12%, var(--cosmic-purple-dim), transparent 42%),
+    radial-gradient(circle at 84% 18%, var(--cosmic-cyan-dim), transparent 46%),
+    radial-gradient(circle at 50% 108%, var(--accent-star-dim), transparent 56%),
+    linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, var(--bg-surface) 100%);
 }
 
-/* ── Seção / Pin ── */
-#saga.jornada {
+/* ---- Viewport (vira o elemento "pinado" no modo horizontal) -------------- */
+.jornada__viewport {
   position: relative;
-  background: var(--bg-mid);
-  overflow-x: clip;
-}
-
-.jornada__pin {
-  position: relative;
-  height: 100vh;
-  height: 100svh;
+  z-index: 1;
   overflow: hidden;
-}
-
-/* ── HUD ── */
-.jornada__hud {
-  position: absolute;
-  top: clamp(1rem, 3vh, 1.75rem);
-  left: 50%;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-  width: 100%;
-  max-width: var(--jornada-hud-maxw);
+  padding-block: var(--space-section-y);
   padding-inline: var(--space-gutter-x);
-  transform: translateX(-50%);
-  pointer-events: none;
 }
 
-.jornada__rail {
-  position: relative;
-  height: var(--jornada-rail-weight);
-  border-radius: 9999px;
-  background: var(--accent-star-dim);
-}
-
-.jornada__fill {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--accent-star);
-  transform-origin: left center;
-  transform: scaleX(var(--progress, 0));
-  will-change: transform;
-}
-
-.jornada__dot {
-  position: absolute;
-  top: 50%;
-  width: var(--jornada-dot-size);
-  height: var(--jornada-dot-size);
-  border-radius: 50%;
-  background: var(--accent-star);
-  box-shadow: 0 0 0 2px var(--bg-mid);
-  transform: translate(-50%, -50%);
-  will-change: filter;
-}
-
-.jornada__dot:nth-child(2) { left: 0%; }
-.jornada__dot:nth-child(3) { left: 20%; }
-.jornada__dot:nth-child(4) { left: 40%; }
-.jornada__dot:nth-child(5) { left: 60%; }
-.jornada__dot:nth-child(6) { left: 80%; }
-.jornada__dot:nth-child(7) { left: 100%; }
-
-.jornada__dot[data-active] {
-  filter: drop-shadow(0 0 6px var(--accent-star-glow))
-    drop-shadow(0 0 14px var(--accent-star-glow));
-}
-
-.jornada__counter {
-  font-family: var(--font-display);
-  font-size: var(--jornada-fs-counter);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  color: var(--text-faint);
-}
-
-.jornada__counter .cur {
-  color: var(--accent-star);
-}
-
-/* ── Numerais de fundo ── */
-.jornada__numerals {
+/* ---- Atmosfera de fundo -------------------------------------------------- */
+.jornada__atmos {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  transform: translate3d(var(--px, 0), 0, 0);
-  will-change: transform;
 }
 
-.jornada__numeral {
+.jornada__nebula {
   position: absolute;
-  top: 50%;
-  font-family: var(--font-hero-stamp);
-  font-size: var(--jornada-numeral-size);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--text-primary);
-  opacity: var(--jornada-numeral-opacity);
-  transform: translate(-50%, -50%);
+  width: clamp(16rem, 34vw, 30rem);
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-full);
+  filter: blur(var(--space-2));
+  opacity: 0.5;
 }
 
-.jornada__numeral:nth-child(1) { left: 8%; }
-.jornada__numeral:nth-child(2) { left: 28%; }
-.jornada__numeral:nth-child(3) { left: 48%; }
-.jornada__numeral:nth-child(4) { left: 68%; }
-.jornada__numeral:nth-child(5) { left: 88%; }
-.jornada__numeral:nth-child(6) { left: 108%; }
+.jornada__nebula--a {
+  top: -6rem;
+  left: -5rem;
+  background: radial-gradient(circle at 45% 45%, color-mix(in srgb, var(--cosmic-purple) 60%, transparent), transparent 70%);
+}
 
-/* ── Track horizontal ── */
+.jornada__nebula--b {
+  top: -4rem;
+  right: -6rem;
+  background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--cosmic-cyan) 52%, transparent), transparent 70%);
+}
+
+.jornada__nebula--c {
+  bottom: -9rem;
+  left: 32%;
+  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-star) 44%, transparent), transparent 72%);
+}
+
+.jornada__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+.jornada__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 82% at 50% 48%, transparent 54%, rgba(2, 4, 10, 0.55) 100%);
+}
+
+/* ---- HUD (só aparece no modo horizontal) -------------------------------- */
+.jornada__hud {
+  display: none;
+}
+
+/* ---- Trilho: PADRÃO = coluna vertical (fallback) ------------------------ */
 .jornada__track {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--jornada-gap);
-  height: 100%;
-  will-change: transform;
-  transform: translate3d(var(--x, 0), 0, 0);
-}
-
-/* ── Painel Hero (Capítulo 01) ── */
-.jornada__panel--hero {
-  position: relative;
-  display: grid;
-  flex: 0 0 100vw;
-  grid-template-columns: 1fr minmax(0, var(--jornada-panel-width));
-  align-items: center;
-  gap: var(--jornada-gap);
-  min-height: 100vh;
-  min-height: 100svh;
-  padding:
-    clamp(4.5rem, 10vh, 6rem)
-    var(--space-gutter-x)
-    var(--space-gutter-x);
-  overflow: hidden;
-}
-
-.jornada__kanji {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-hero-stamp);
-  font-size: clamp(12rem, 38vw, 28rem);
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--text-primary);
-  opacity: var(--jornada-kanji-opacity);
-  pointer-events: none;
-  user-select: none;
-}
-
-.jornada__hero-copy {
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  max-width: 60rem;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
+  gap: clamp(var(--space-12), 8vw, var(--space-20));
+}
+
+.jornada__rail {
+  display: none;
+}
+
+.jornada__panel {
+  position: relative;
+}
+
+/* ---- Painel de abertura ------------------------------------------------- */
+.jornada__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
 }
 
 .jornada__eyebrow {
   margin: 0;
   font-family: var(--font-hero-saga);
-  font-size: var(--fs-2xs);
-  font-weight: 500;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--accent-star);
 }
 
 .jornada__title {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.125rem, 0.5vw, 0.375rem);
   margin: 0;
-  font-family: var(--font-hero-stamp);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.jornada__title .line--main {
-  font-size: clamp(2.75rem, 8.5vw, 5.5rem);
+  font-family: var(--font-body);
+  font-size: clamp(2.5rem, 1.6rem + 4.5vw, 4.5rem);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
-.jornada__title .line--saga {
-  font-size: clamp(2rem, 6.2vw, 4rem);
-  color: var(--cosmic-rose);
+.jornada__title-accent {
+  background: linear-gradient(95deg, var(--accent-star) 0%, var(--cosmic-rose) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.jornada__tagline {
+.jornada__subtitle {
   margin: 0;
-  max-width: 32ch;
   font-family: var(--font-hero-saga);
-  font-size: clamp(0.75rem, 1.2vw, 0.9375rem);
-  font-weight: 400;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-faint);
 }
 
-.jornada__scroll {
-  display: inline-flex;
+/* Marca-d'água katakana ("Namek") — detalhe atmosférico do painel de abertura.
+   Só no modo horizontal (na abertura de tela cheia há espaço pra ela). */
+.jornada__intro-kanji {
+  display: none;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(8rem, 30vw, 22rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--cosmic-cyan) 26%, transparent);
+  opacity: 0.5;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.jornada__cue {
+  display: none; /* só faz sentido no modo horizontal */
   align-items: center;
-  gap: 0.625rem;
-  margin-top: clamp(0.5rem, 2vh, 1rem);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
   font-family: var(--font-hero-saga);
-  font-size: var(--fs-2xs);
-  font-weight: 400;
-  letter-spacing: var(--ls-label);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  text-decoration: none;
   color: var(--text-muted);
 }
 
-.jornada__scroll-arrow {
-  display: inline-block;
+.jornada__cue-arrow {
+  display: inline-flex;
   color: var(--accent-star);
-  animation: jornada-scroll-bob 2.4s var(--ease-out-expo) infinite;
 }
 
-.jornada__panel--hero .jornada__card {
-  position: relative;
-  z-index: 1;
-  align-self: center;
-}
-
-/* ── Cards de capítulo ── */
-.jornada__card {
+/* ---- Capítulos: PADRÃO (empilhados) ------------------------------------ */
+.jornada__chapter {
   display: flex;
-  flex: 0 0 var(--jornada-panel-width);
   flex-direction: column;
-  gap: clamp(0.75rem, 1.5vw, 1rem);
-  padding: clamp(0.875rem, 1.5vw, 1.125rem);
+  gap: var(--space-4);
+  padding-left: clamp(var(--space-4), 5vw, var(--space-10));
+  border-left: 2px solid color-mix(in srgb, var(--ch-accent) 45%, transparent);
+}
+
+.jornada__num {
+  font-family: var(--font-hero-stamp);
+  font-size: clamp(3.5rem, 14vw, 7rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ch-accent) 60%, transparent);
+  opacity: 0.85;
+}
+
+.jornada__node {
+  display: none; /* esfera só no modo horizontal (sobre o trilho) */
+  width: 2.4rem;
+  height: 2.4rem;
+  background: url("../assets/images/esfera-dragao-1estrela.webp") center / contain no-repeat;
+}
+
+.jornada__card {
+  position: relative;
+  background: color-mix(in srgb, var(--bg-surface) 84%, transparent);
   border: 1px solid var(--border-subtle);
-  border-top: 3px solid var(--ch-accent);
-  border-radius: var(--jornada-card-radius);
-  background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  opacity: 0;
-  transform: translateY(var(--jornada-reveal-y));
-  transition:
-    opacity 0.65s var(--ease-out-expo),
-    transform 0.65s var(--ease-out-expo);
-  will-change: opacity, transform;
+  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-5), 2.6vw, var(--space-8));
+  box-shadow: var(--shadow-card);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
-.jornada__card[data-reveal="in"] {
-  opacity: 1;
-  transform: none;
+/* Risquinho de energia no topo do card, na cor do capítulo */
+.jornada__card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: clamp(var(--space-5), 2.6vw, var(--space-8));
+  width: clamp(2.5rem, 18%, 4rem);
+  height: 2px;
+  background: linear-gradient(90deg, var(--ch-accent), transparent);
+  border-radius: var(--radius-full);
 }
 
-.jornada__card[data-reveal="in"] .jornada__card-media {
-  animation: jornada-card-part-in 0.7s var(--ease-out-expo) both;
-}
-
-.jornada__card[data-reveal="in"] .jornada__card-kicker {
-  animation: jornada-card-part-in 0.7s var(--ease-out-expo) var(--stagger-sm) both;
-}
-
-.jornada__card[data-reveal="in"] .jornada__card-title {
-  animation: jornada-card-part-in 0.7s var(--ease-out-expo) var(--stagger-md) both;
-}
-
-.jornada__card[data-reveal="in"] .jornada__card-desc {
-  animation: jornada-card-part-in 0.7s var(--ease-out-expo) var(--stagger-lg) both;
-}
-
-.jornada__card-media {
-  aspect-ratio: var(--jornada-media-ratio);
-  overflow: hidden;
-  border-radius: var(--jornada-media-radius);
-  background: var(--bg-deep);
-}
-
-.jornada__card-media img,
-.jornada__card-media video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.jornada__card-kicker {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--fs-2xs);
-  font-weight: 600;
+.jornada__kicker {
+  display: inline-block;
+  font-family: var(--font-hero-saga);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--ch-accent);
 }
 
 .jornada__card-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--jornada-fs-heading);
-  font-weight: 700;
-  line-height: 1.15;
+  margin: var(--space-2) 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
   color: var(--text-primary);
 }
 
-.jornada__card-desc {
+.jornada__card-text {
   margin: 0;
-  max-width: var(--jornada-desc-maxw);
-  font-family: var(--font-body);
-  font-size: var(--jornada-fs-desc);
-  font-weight: 400;
-  line-height: 1.55;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
   color: var(--text-muted);
 }
 
-/* ── Keyframes ── */
-@keyframes jornada-scroll-bob {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
+.jornada__media,
+.jornada__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--ch-accent) 35%, var(--border-subtle));
+  background: #000;
+}
 
-  50% {
-    transform: translateX(0.35rem);
+/* ---- Rodapé (volta ao fluxo normal depois da seção) -------------------- */
+.jornada__footer {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(var(--space-12), 6vw, var(--space-16));
+  padding: var(--space-10) var(--space-gutter-x) var(--space-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.jornada__footer-title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.jornada__footer-text {
+  margin: 0 auto;
+  max-width: min(100%, 70ch);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-body);
+  color: var(--text-muted);
+}
+
+/* ============================================================================
+   MODO HORIZONTAL — ligado por JS (.jornada.is-horizontal) no desktop com
+   movimento permitido. A partir daqui o trilho corre no eixo X com pin.
+   ============================================================================ */
+
+.jornada.is-horizontal {
+  overflow: visible; /* não clipar o elemento "pinado" (fixed) do ScrollTrigger */
+}
+
+.jornada.is-horizontal .jornada__viewport {
+  height: 100vh;
+  padding: 0;
+}
+
+/* HUD fixo no topo da viewport pinada */
+.jornada.is-horizontal .jornada__hud {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.jornada__progress {
+  width: 100%;
+  height: 3px;
+  background: color-mix(in srgb, var(--text-primary) 10%, transparent);
+  overflow: hidden;
+}
+
+.jornada__progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--cosmic-cyan), var(--accent-star) 60%, var(--cosmic-rose));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent-star) 50%, transparent);
+}
+
+.jornada__hud-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: clamp(var(--space-4), 2vw, var(--space-6)) clamp(var(--space-5), 4vw, var(--space-10));
+}
+
+.jornada__hud-label {
+  font-family: var(--font-hero-saga);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.jornada__counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+  font-family: var(--font-hero-stamp);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.jornada__counter-current {
+  display: inline-block;
+  font-size: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  color: var(--accent-star);
+  transform-origin: center bottom;
+}
+
+.jornada__counter-current.is-pulse {
+  animation: jornada-counter-pop 0.42s var(--ease-spring) both;
+}
+
+.jornada__counter-sep,
+.jornada__counter-total {
+  font-size: var(--fs-md);
+  color: var(--text-faint);
+}
+
+/* Trilho corre na horizontal */
+.jornada.is-horizontal .jornada__track {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  width: max-content;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+  will-change: transform;
+}
+
+/* Linha-trilho contínua passando por todos os painéis */
+.jornada.is-horizontal .jornada__rail {
+  display: block;
+  position: absolute;
+  top: var(--jor-rail-y);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, var(--cosmic-cyan) 5%, var(--accent-star) 68%, var(--cosmic-rose) 96%, transparent);
+  opacity: 0.55;
+  z-index: 1;
+}
+
+.jornada.is-horizontal .jornada__panel {
+  flex: 0 0 auto;
+  height: 100%;
+  padding: 0;
+  border: 0;
+}
+
+/* Abertura ocupa a tela inteira */
+.jornada.is-horizontal .jornada__intro {
+  width: 100vw;
+  height: 100%;
+  justify-content: center;
+  padding-inline: var(--space-gutter-x);
+}
+
+.jornada.is-horizontal .jornada__cue {
+  display: inline-flex;
+}
+
+.jornada.is-horizontal .jornada__intro-kanji {
+  display: block;
+}
+
+/* Cada capítulo é um painel de largura fixa */
+.jornada.is-horizontal .jornada__chapter {
+  width: clamp(22rem, 56vw, 34rem);
+  height: 100%;
+  display: block;
+  gap: 0;
+  padding-inline: var(--jor-pad);
+}
+
+/* Numeral gigante como marca-d'água atrás do card */
+.jornada.is-horizontal .jornada__num {
+  position: absolute;
+  z-index: 1;
+  top: 14%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(6rem, 20vh, 13rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  background: linear-gradient(180deg, var(--ch-accent), transparent 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0; /* revelado ao entrar (.is-inview); GSAP cuida do parallax em X */
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.7s var(--ease-out-expo);
+}
+
+/* Esfera do dragão sobre o trilho + gota de energia descendo */
+.jornada.is-horizontal .jornada__node {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  top: var(--jor-rail-y);
+  left: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--ch-accent) 70%, transparent));
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-spring);
+}
+
+.jornada.is-horizontal .jornada__node::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: clamp(2rem, 6vh, 4rem);
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ch-accent) 70%, transparent), transparent);
+}
+
+/* Card ancorado na parte de baixo do painel */
+.jornada.is-horizontal .jornada__card {
+  position: absolute;
+  z-index: 4;
+  top: var(--jor-card-top);
+  left: var(--jor-pad);
+  right: var(--jor-pad);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+
+.jornada.is-horizontal .jornada__media,
+.jornada.is-horizontal .jornada__video {
+  max-height: 20vh;
+}
+
+.jornada.is-horizontal .jornada__card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Revelação por capítulo (classe via JS quando o painel entra) */
+.jornada.is-horizontal .jornada__chapter.is-inview .jornada__num {
+  opacity: 0.16;
+}
+
+.jornada.is-horizontal .jornada__chapter.is-inview .jornada__node {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.jornada.is-horizontal .jornada__chapter.is-inview .jornada__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* O rodapé não fica dentro da viewport pinada — herda o layout base */
+
+/* ---- Animações ---------------------------------------------------------- */
+@keyframes jornada-cue-arrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@keyframes jornada-counter-pop {
+  0% { transform: scale(0.6); opacity: 0.2; }
+  60% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .jornada.is-horizontal .jornada__cue-arrow {
+    animation: jornada-cue-arrow 1.3s var(--ease-in-out-soft) infinite;
   }
 }
 
-@keyframes jornada-card-part-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ── Mobile: coluna vertical ── */
-@media (max-width: 768px) {
-  .jornada__pin {
-    height: auto;
-    overflow: visible;
-  }
-
-  .jornada__hud {
-    display: var(--jornada-timeline-mobile);
-  }
-
-  .jornada__numerals {
-    transform: none;
-  }
-
-  .jornada__numeral {
-    font-size: var(--jornada-numeral-size-mobile);
-  }
-
-  .jornada__numeral:nth-child(1) { left: 5%; top: 4%; transform: none; }
-  .jornada__numeral:nth-child(2) { left: auto; right: 5%; top: 18%; transform: none; }
-  .jornada__numeral:nth-child(3) { left: 8%; top: 32%; transform: none; }
-  .jornada__numeral:nth-child(4) { left: auto; right: 8%; top: 46%; transform: none; }
-  .jornada__numeral:nth-child(5) { left: 6%; top: 60%; transform: none; }
-  .jornada__numeral:nth-child(6) { left: auto; right: 6%; top: 74%; transform: none; }
-
-  .jornada__track {
-    flex-direction: column;
-    align-items: stretch;
-    height: auto;
-    padding:
-      var(--space-section-y)
-      var(--space-gutter-x);
-    transform: none;
-  }
-
-  .jornada__panel--hero {
-    flex: 0 0 auto;
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding:
-      clamp(5rem, 12vh, 6.5rem)
-      0
-      clamp(1.5rem, 4vw, 2rem);
-  }
-
-  .jornada__kanji {
-    font-size: clamp(8rem, 55vw, 14rem);
-  }
-
-  .jornada__title .line--main {
-    font-size: clamp(2.25rem, 12vw, 3.25rem);
-  }
-
-  .jornada__title .line--saga {
-    font-size: clamp(1.65rem, 9vw, 2.5rem);
-  }
-
-  .jornada__card {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ── Reduced motion ── */
+/* ---- Movimento reduzido: tudo visível, sem animações infinitas --------- */
 @media (prefers-reduced-motion: reduce) {
-  .jornada__scroll-arrow {
-    animation: none;
-  }
-
+  .jornada__num,
+  .jornada__node,
   .jornada__card,
-  .jornada__card[data-reveal="in"] .jornada__card-media,
-  .jornada__card[data-reveal="in"] .jornada__card-kicker,
-  .jornada__card[data-reveal="in"] .jornada__card-title,
-  .jornada__card[data-reveal="in"] .jornada__card-desc {
-    opacity: 1;
-    transform: none;
-    animation: none;
-    transition: none;
-  }
-
-  .jornada__track,
-  .jornada__numerals,
-  .jornada__fill {
-    will-change: auto;
+  .jornada__intro > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

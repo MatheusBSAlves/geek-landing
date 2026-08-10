@@ -1,0 +1,7 @@
+# Backup das imagens originais (antes da otimização)
+assets/images/_orig_png/
+
+# Ferramentas/config locais
+.agents/
+.claude/
+skills-lock.json

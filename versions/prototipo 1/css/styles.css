@@ -1,0 +1,825 @@
+/* ── Design tokens (:root) ── */
+:root {
+  /* Fontes */
+  --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+  --font-hero-stamp: 'Anton', ui-sans-serif, system-ui, sans-serif;
+  --font-hero-saga: 'Oswald', 'Outfit', ui-sans-serif, sans-serif;
+
+  /* Cores base */
+  --bg-deep: #04060f;
+  --bg-mid: #0a1228;
+  --bg-surface: #121a3a;
+  --bg-surface-raised: #1a2350;
+  --bg-overlay: rgba(8, 12, 28, 0.74);
+
+  /* Texto */
+  --text-primary: #f5f0e8;
+  --text-muted: rgba(247, 243, 232, 0.64);
+  --text-faint: rgba(245, 240, 232, 0.48);
+
+  /* Acentos */
+  --accent-star: #ff7a18;
+  --accent-star-dim: rgba(255, 122, 24, 0.12);
+  --accent-star-glow: rgba(255, 122, 24, 0.35);
+  --cosmic-cyan: #29c2ff;
+  --cosmic-purple: #6c2bd9;
+  --cosmic-rose: #ffd23f;
+
+  /* Bordas / foco */
+  --border-subtle: rgba(245, 240, 232, 0.12);
+  --border-strong: rgba(245, 240, 232, 0.22);
+  --ring-focus: rgba(41, 194, 255, 0.55);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Tipografia utilitária */
+  --ls-label: 0.12em;
+  --fs-2xs: clamp(0.625rem, 0.58rem + 0.2vw, 0.6875rem);
+  --fs-xs: clamp(0.6875rem, 0.64rem + 0.22vw, 0.75rem);
+
+  /* Layout */
+  --space-gutter-x: clamp(1rem, 3vw, 2rem);
+  --jornada-bp: 768px;
+  --z-nav: 100;
+}
+
+/* ── Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+}
+
+/* ── Floating Nav ── */
+.floating-nav {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  left: 50%;
+  z-index: var(--z-nav);
+  max-width: calc(100% - var(--space-gutter-x) * 2);
+  padding: 0.375rem clamp(0.625rem, 2vw, 1rem);
+  border: 1px solid var(--border-subtle);
+  border-top-color: var(--border-strong);
+  border-radius: 9999px;
+  background: var(--bg-surface-raised);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 24px var(--bg-overlay),
+    0 0 32px var(--accent-star-glow);
+  font-family: var(--font-body);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -0.75rem);
+  transition:
+    opacity 0.45s var(--ease-out-expo),
+    transform 0.45s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.floating-nav--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.floating-nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.125rem, 1vw, 0.375rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.floating-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.floating-nav__item:not(:first-child)::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 0.875rem;
+  margin-inline: clamp(0.25rem, 1vw, 0.5rem);
+  background: var(--border-strong);
+  pointer-events: none;
+}
+
+.floating-nav__link {
+  display: inline-block;
+  padding: 0.5rem clamp(0.375rem, 1.2vw, 0.625rem);
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition:
+    color 0.3s var(--ease-out-expo),
+    background-color 0.3s var(--ease-out-expo);
+}
+
+.floating-nav__link:hover,
+.floating-nav__link:focus-visible {
+  color: var(--text-primary);
+  background-color: var(--accent-star-dim);
+}
+
+.floating-nav__link--active {
+  color: var(--accent-star);
+}
+
+.floating-nav__link--active:hover,
+.floating-nav__link--active:focus-visible {
+  color: var(--accent-star);
+  background-color: var(--accent-star-dim);
+}
+
+.floating-nav__link:focus-visible {
+  outline: 2px solid var(--ring-focus);
+  outline-offset: 3px;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+.hero__bg,
+.hero__overlay,
+.hero__figures,
+.hero__overlay-front {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__bg {
+  z-index: 0;
+}
+
+.hero__bg-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  z-index: 1;
+  background: var(--bg-overlay);
+  opacity: 0.28;
+}
+
+.hero__figures {
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero__goku-glow,
+.hero__freeza-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+.hero__goku-glow {
+  left: -8%;
+  bottom: 8%;
+  width: min(52vw, 36rem);
+  height: min(72vh, 42rem);
+  background: radial-gradient(
+    ellipse at center,
+    var(--accent-star-glow) 0%,
+    transparent 68%
+  );
+}
+
+.hero__freeza-glow {
+  right: -8%;
+  bottom: 10%;
+  width: min(48vw, 32rem);
+  height: min(68vh, 38rem);
+  background: radial-gradient(
+    ellipse at center,
+    var(--cosmic-purple) 0%,
+    transparent 70%
+  );
+  opacity: 0.55;
+}
+
+.hero__figure {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  height: min(88vh, 52rem);
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+  mix-blend-mode: normal;
+}
+
+.hero__figure--goku {
+  left: -4%;
+  transform: translateX(-2%);
+}
+
+.hero__figure--freeza {
+  right: -4%;
+  transform: translateX(2%);
+  bottom: -19%;
+}
+
+.hero__overlay-front {
+  z-index: 3;
+  background:
+    radial-gradient(
+      ellipse 55% 48% at 50% 42%,
+      var(--bg-overlay) 0%,
+      transparent 75%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 62%,
+      var(--bg-overlay) 100%
+    );
+  opacity: 0.18;
+}
+
+.hero__poster {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  min-height: 100svh;
+  padding:
+    clamp(5rem, 12vh, 7rem)
+    var(--space-gutter-x)
+    clamp(6rem, 14vh, 8rem);
+  text-align: center;
+}
+
+.hero__pill {
+  display: inline-block;
+  padding: 0.6125rem clamp(1.225rem, 3.5vw, 1.75rem);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  background: var(--accent-star-dim);
+  font-family: var(--font-hero-saga);
+  font-size: clamp(0.9625rem, 0.896rem + 0.31vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--accent-star);
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.125rem, 0.5vw, 0.375rem);
+  margin: 0;
+  font-family: var(--font-hero-stamp);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.hero__title-line {
+  display: block;
+}
+
+.hero__title-line--main {
+  font-size: clamp(3.85rem, 12.6vw, 7.7rem);
+  color: var(--text-primary);
+}
+
+.hero__title-line--saga {
+  font-size: clamp(2.8rem, 9.1vw, 5.25rem);
+  color: var(--cosmic-rose);
+}
+
+.hero__tagline {
+  max-width: 28ch;
+  margin: 0;
+  font-family: var(--font-hero-saga);
+  font-size: clamp(0.8125rem, 1.4vw, 1rem);
+  font-weight: 400;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.hero__scroll {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: clamp(1.25rem, 4vh, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  transform: translateX(-50%);
+}
+
+.hero__scroll-label {
+  font-family: var(--font-hero-saga);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.hero__scroll-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--accent-star);
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--accent-star);
+}
+
+.hero__scroll:focus-visible {
+  outline: 2px solid var(--ring-focus);
+  outline-offset: 4px;
+  border-radius: 9999px;
+}
+
+@media (max-width: 768px) {
+  .hero__figure {
+    height: min(52vh, 22rem);
+    opacity: 0.72;
+  }
+
+  .hero__figure--goku {
+    left: -18%;
+  }
+
+  .hero__figure--freeza {
+    right: -18%;
+  }
+
+  .hero__goku-glow,
+  .hero__freeza-glow {
+    opacity: 0.45;
+    filter: blur(36px);
+  }
+
+  .hero__poster {
+    padding-top: clamp(4.5rem, 14vh, 6rem);
+  }
+
+  .hero__title-line--main {
+    font-size: clamp(3.15rem, 16.8vw, 4.55rem);
+  }
+
+  .hero__title-line--saga {
+    font-size: clamp(2.275rem, 11.2vw, 3.5rem);
+  }
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-gutter-x);
+}
+
+.section--trailers { background: var(--bg-surface); }
+
+/* ── Personagens ── */
+.personagens {
+  --personagens-blueprint-bg: #0d2b4d;
+  --personagens-blueprint-spotlight: rgba(122, 162, 255, 0.18);
+  --personagens-blueprint-line: rgba(179, 205, 255, 0.28);
+  --personagens-blueprint-hover-fill: rgba(33, 82, 131, 0.18);
+  --personagens-blueprint-hover-stroke: rgba(172, 193, 255, 0.70);
+  --personagens-blueprint-hover-glow: rgba(122, 162, 255, 0.30);
+  --personagens-blueprint-vignette: rgba(13, 43, 77, 0.92);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(140vh, 165vh, 190vh);
+  background: var(--personagens-blueprint-bg);
+}
+
+.personagens__particles-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.personagens__blueprint {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--personagens-blueprint-bg);
+}
+
+.personagens__blueprint-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle 720px at 50% 220px,
+    var(--personagens-blueprint-spotlight),
+    transparent 70%
+  );
+}
+
+.personagens__blueprint-grid,
+.personagens__blueprint-hover {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.personagens__blueprint-grid {
+  z-index: 1;
+}
+
+.personagens__blueprint-hover {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.personagens__blueprint-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.personagens__blueprint-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 55%,
+    var(--personagens-blueprint-vignette) 100%
+  );
+}
+
+.personagens__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.personagens__grid::before,
+.personagens__grid::after {
+  content: "";
+  position: absolute;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--cosmic-rose);
+  box-shadow:
+    0 0 0.5rem var(--cosmic-rose),
+    0 0 1.25rem color-mix(in srgb, var(--cosmic-rose) 55%, transparent);
+  pointer-events: none;
+}
+
+.personagens__grid::before {
+  top: 34%;
+  left: 22%;
+}
+
+.personagens__grid::after {
+  top: 62%;
+  right: 28%;
+}
+
+.personagens__header {
+  position: relative;
+  z-index: 3;
+  display: block;
+  max-width: 42rem;
+  margin-inline: auto;
+  padding:
+    clamp(5rem, 12vh, 7rem)
+    var(--space-gutter-x)
+    clamp(2rem, 5vh, 3rem);
+  text-align: center;
+}
+
+.personagens__eyebrow {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--accent-star);
+}
+
+.personagens__title {
+  margin: 0 0 0.875rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+
+.personagens__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.personagens__stage {
+  position: relative;
+  z-index: 2;
+  min-height: clamp(95vh, 115vh, 135vh);
+  pointer-events: none;
+}
+
+.personagem {
+  position: absolute;
+  margin: 0;
+  text-align: center;
+  pointer-events: auto;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  animation:
+    personagem-reveal 0.85s var(--ease-out-expo) forwards,
+    personagem-float var(--float-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--reveal-delay, 0s), var(--float-delay, 0s);
+}
+
+.personagem__img {
+  display: block;
+  height: var(--personagem-h, clamp(11.5rem, 21vw, 17rem));
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  filter: drop-shadow(0 0 28px var(--accent-star-glow));
+}
+
+.personagem__nome {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.personagem:focus-visible {
+  outline: 2px solid var(--ring-focus);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}
+
+/* Composição freeform — coordenadas por modificador */
+.personagem--goku {
+  top: 0;
+  left: 12%;
+  z-index: 4;
+  --personagem-h: clamp(15.5rem, 29vw, 23.5rem);
+  --reveal-delay: 0.05s;
+  --float-duration: 7s;
+  --float-delay: -1.2s;
+}
+
+.personagem--vegeta {
+  top: -2%;
+    right: 22%;
+  z-index: 3;
+  --personagem-h: clamp(13rem, 23vw, 19.5rem);
+  --reveal-delay: 0.12s;
+  --float-duration: 6.5s;
+  --float-delay: -2.4s;
+}
+
+.personagem--gohan {
+  top: 10%;
+    left: 41%;
+  z-index: 2;
+  --personagem-h: clamp(11rem, 18vw, 15.5rem);
+  --reveal-delay: 0.2s;
+  --float-duration: 5.8s;
+  --float-delay: -0.8s;
+}
+
+.personagem--kuririn {
+  bottom: 32%;
+    left: 18%;
+  z-index: 1;
+  --personagem-h: clamp(10.1rem, 17vw, 14.3rem);
+  --reveal-delay: 0.28s;
+  --float-duration: 5.2s;
+  --float-delay: -3.1s;
+}
+
+.personagem--ginyu {
+  top: 39%;
+    right: 27%;
+  z-index: 3;
+  --personagem-h: clamp(11.5rem, 20vw, 17rem);
+  --reveal-delay: 0.36s;
+  --float-duration: 6.8s;
+  --float-delay: -1.7s;
+}
+
+.personagem--freeza {
+  top: 38%;
+  right: 10%;
+  z-index: 5;
+  --personagem-h: clamp(17rem, 31vw, 25rem);
+  --reveal-delay: 0.44s;
+  --float-duration: 7.4s;
+  --float-delay: -2.9s;
+}
+
+.personagem--piccolo {
+  top: 39%;
+    left: 36%;
+  z-index: 2;
+  --personagem-h: clamp(12.7rem, 21vw, 17.5rem);
+  --reveal-delay: 0.52s;
+  --float-duration: 6.2s;
+  --float-delay: -4s;
+}
+
+.personagem--dodoria {
+  bottom: 14%;
+  right: 54%;
+  z-index: 1;
+  --personagem-h: clamp(8.5rem, 14vw, 11.5rem);
+  --reveal-delay: 0.6s;
+  --float-duration: 5.5s;
+  --float-delay: -0.5s;
+}
+
+.personagem--zarbon {
+  bottom: 3%;
+  right: 29%;
+  z-index: 2;
+  --personagem-h: clamp(10.5rem, 17vw, 15rem);
+  --reveal-delay: 0.68s;
+  --float-duration: 6.6s;
+  --float-delay: -3.6s;
+}
+
+@keyframes personagem-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes personagem-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (max-width: 768px) {
+  .personagens {
+    min-height: auto;
+    overflow-x: hidden;
+  }
+
+  .personagens__header {
+    padding-top: clamp(4.5rem, 10vh, 5.5rem);
+  }
+
+  .personagens__stage {
+    min-height: auto;
+    padding:
+      0
+      var(--space-gutter-x)
+      clamp(4rem, 10vh, 5rem);
+  }
+
+  .personagem {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: auto;
+    pointer-events: auto;
+    max-width: 18rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2.5rem, 8vw, 3.5rem);
+    animation: personagem-reveal 0.85s var(--ease-out-expo) forwards;
+    transform: none;
+  }
+
+  .personagem__img {
+    height: clamp(11.5rem, 55vw, 17rem);
+    margin-inline: auto;
+  }
+}
+
+/* ── Responsividade ── */
+@media (max-width: 768px) {
+  .floating-nav {
+    padding: 0.25rem clamp(0.375rem, 2vw, 0.625rem);
+  }
+
+  .floating-nav__link {
+    padding: 0.4375rem clamp(0.25rem, 1vw, 0.375rem);
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.08em;
+  }
+
+  .floating-nav__item:not(:first-child)::before {
+    margin-inline: 0.25rem;
+    height: 0.75rem;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .floating-nav {
+    transform: translateX(-50%);
+    transition: opacity 0.2s ease;
+  }
+
+  .floating-nav--visible {
+    transform: translateX(-50%);
+  }
+
+  .floating-nav__link {
+    transition: none;
+  }
+
+  .personagem {
+    animation: personagem-reveal-static 0.01s forwards;
+    will-change: auto;
+  }
+
+  @keyframes personagem-reveal-static {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

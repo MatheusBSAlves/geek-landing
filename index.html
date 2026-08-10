@@ -1,294 +1,353 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball Z: A Saga de Freeza</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka:wght@300..700&family=Oswald:wght@200..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/jornada.css">
-    <title>DBZ — A Saga do Freeza</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka:wght@500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/jornada.css">
 </head>
+
 <body>
 
-    <nav class="floating-nav" aria-label="Navegação principal">
+
+    <nav class="floating-nav" aria-label="Navegação principal da página">
         <ul class="floating-nav__list">
             <li class="floating-nav__item">
-                <a class="floating-nav__link floating-nav__link--active" href="#hero" data-section="hero">DBZ</a>
+                <a href="#hero" class="floating-nav__link floating-nav__link--active" data-section="hero">DBZ</a>
+            </li>
+            <li class="floating-nav__item" aria-hidden="true" role="presentation">
+                <span class="floating-nav__separator"></span>
             </li>
             <li class="floating-nav__item">
-                <a class="floating-nav__link" href="#personagens" data-section="personagens">Personagens</a>
+                <a href="#personagens" class="floating-nav__link" data-section="personagens">Personagens</a>
+            </li>
+            <li class="floating-nav__item" aria-hidden="true" role="presentation">
+                <span class="floating-nav__separator"></span>
             </li>
             <li class="floating-nav__item">
-                <a class="floating-nav__link" href="#trailers" data-section="trailers">Trailers</a>
+                <a href="#trailers" class="floating-nav__link" data-section="trailers">Trailers</a>
+            </li>
+            <li class="floating-nav__item" aria-hidden="true" role="presentation">
+                <span class="floating-nav__separator"></span>
             </li>
             <li class="floating-nav__item">
-                <a class="floating-nav__link" href="#saga" data-section="saga">A Saga</a>
+                <a href="#saga" class="floating-nav__link" data-section="saga">A Saga</a>
             </li>
         </ul>
     </nav>
 
-    <section id="hero" class="hero">
-        <div class="hero__bg" aria-hidden="true">
-            <video
-                class="hero__bg-video"
-                autoplay
-                loop
-                muted
-                playsinline
-                preload="auto"
-            >
-                <source src="./assets/videos/hero-bg-namekusei.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="hero__overlay" aria-hidden="true"></div>
-
-        <div class="hero__figures" aria-hidden="true">
-            <div class="hero__goku-glow" aria-hidden="true"></div>
-            <video
-                class="hero__figure hero__figure--goku"
-                autoplay
-                loop
-                muted
-                playsinline
-                preload="auto"
-                aria-hidden="true"
-            >
-                <source src="./assets/videos/goku-hero.webm" type="video/webm">
-                <source src="./assets/videos/goku-hero.mp4" type="video/mp4">
-            </video>
-            <div class="hero__freeza-glow" aria-hidden="true"></div>
-            <video
-                class="hero__figure hero__figure--freeza"
-                autoplay
-                loop
-                muted
-                playsinline
-                preload="auto"
-                aria-hidden="true"
-            >
-                <source src="./assets/videos/freeza-hero.webm" type="video/webm">
-                <source src="./assets/videos/freeza-hero.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="hero__overlay-front" aria-hidden="true"></div>
-
-        <div class="hero__poster">
-            <span class="hero__pill">A Saga Lendária</span>
-            <h1 class="hero__title">
-                <span class="hero__title-line hero__title-line--main">Dragon Ball Z</span>
-                <span class="hero__title-line hero__title-line--saga">A Saga de Freeza</span>
-            </h1>
-            <p class="hero__tagline">A batalha que forjou uma lenda</p>
-        </div>
-
-        <a class="hero__scroll" href="#personagens">
-            <span class="hero__scroll-label">Role para começar</span>
-            <span class="hero__scroll-arrow" aria-hidden="true">˅</span>
-        </a>
-    </section>
-
-    <section id="personagens" class="personagens">
-        <div class="personagens__particles-bg" aria-hidden="true">
-            <div class="personagens__blueprint">
-                <div class="personagens__blueprint-spotlight"></div>
-                <canvas class="personagens__blueprint-grid"></canvas>
-                <canvas class="personagens__blueprint-hover"></canvas>
-                <canvas class="personagens__blueprint-noise"></canvas>
-                <div class="personagens__blueprint-vignette"></div>
-            </div>
-            <div id="personagens-grid" class="personagens__grid"></div>
-        </div>
-
-        <header class="personagens__header">
-            <p class="personagens__eyebrow">OS GUERREIROS Z</p>
-            <h2 class="personagens__title">Personagens</h2>
-            <p class="personagens__subtitle">OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI</p>
-        </header>
-
-        <div class="personagens__stage">
-            <figure class="personagem personagem--goku">
-                <img class="personagem__img" loading="lazy" src="assets/images/goku-perso.png" alt="Goku">
-                <figcaption class="personagem__nome">Goku</figcaption>
-            </figure>
-            <figure class="personagem personagem--vegeta">
-                <img class="personagem__img" loading="lazy" src="assets/images/vegeta-perso.png" alt="Vegeta">
-                <figcaption class="personagem__nome">Vegeta</figcaption>
-            </figure>
-            <figure class="personagem personagem--gohan">
-                <img class="personagem__img" loading="lazy" src="assets/images/gohan-perso.png" alt="Gohan">
-                <figcaption class="personagem__nome">Gohan</figcaption>
-            </figure>
-            <figure class="personagem personagem--kuririn">
-                <img class="personagem__img" loading="lazy" src="assets/images/kuririn-perso.png" alt="Kuririn">
-                <figcaption class="personagem__nome">Kuririn</figcaption>
-            </figure>
-            <figure class="personagem personagem--ginyu">
-                <img class="personagem__img" loading="lazy" src="assets/images/ginyu-perso.png" alt="Capitão Ginyu">
-                <figcaption class="personagem__nome">Capitão Ginyu</figcaption>
-            </figure>
-            <figure class="personagem personagem--freeza">
-                <img class="personagem__img" loading="lazy" src="assets/images/freeza-perso.png" alt="Freeza">
-                <figcaption class="personagem__nome">Freeza</figcaption>
-            </figure>
-            <figure class="personagem personagem--piccolo">
-                <img class="personagem__img" loading="lazy" src="assets/images/piccolo-perso.png" alt="Piccolo">
-                <figcaption class="personagem__nome">Piccolo</figcaption>
-            </figure>
-            <figure class="personagem personagem--dodoria">
-                <img class="personagem__img" loading="lazy" src="assets/images/dodoria-perso.png" alt="Dodoria">
-                <figcaption class="personagem__nome">Dodoria</figcaption>
-            </figure>
-            <figure class="personagem personagem--zarbon">
-                <img class="personagem__img" loading="lazy" src="assets/images/zarbon-perso.png" alt="Zarbon">
-                <figcaption class="personagem__nome">Zarbon</figcaption>
-            </figure>
-        </div>
-    </section>
-
-    <section id="saga" class="jornada" aria-label="A Saga do Freeza">
-        <div class="jornada__pin">
-            <div class="jornada__hud" aria-hidden="true">
-                <div class="jornada__rail">
-                    <div class="jornada__fill"></div>
-                    <span class="jornada__dot" data-chapter="1" data-active></span>
-                    <span class="jornada__dot" data-chapter="2"></span>
-                    <span class="jornada__dot" data-chapter="3"></span>
-                    <span class="jornada__dot" data-chapter="4"></span>
-                    <span class="jornada__dot" data-chapter="5"></span>
-                    <span class="jornada__dot" data-chapter="6"></span>
+    <main id="conteudo-principal">
+        <section id="hero" class="hero" aria-labelledby="hero-heading">
+            <!-- HERO V2 — título estilo "pôster" (pill + 2 linhas grandes + subtítulo) -->
+            <div class="hero__bg" aria-hidden="true">
+                <div class="hero__bg-inner">
+                    <video class="hero__bg-video" autoplay loop muted playsinline preload="auto">
+                        <source src="assets/videos/magnific_epic-destroyed-alien-plan_EqTQF2ruuO.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero__overlay"></div>
+                    <div class="hero__goku-glow" aria-hidden="true"></div>
+                    <video class="hero__figure hero__figure--goku" autoplay loop muted playsinline preload="auto">
+                        <source src="assets/videos/goku-hero.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero__freeza-glow" aria-hidden="true"></div>
+                    <video class="hero__figure hero__figure--freeza" autoplay loop muted playsinline preload="auto">
+                        <source src="assets/videos/freeza-hero.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <p class="jornada__counter"><span class="cur">01</span>/06</p>
             </div>
 
-            <div class="jornada__numerals" aria-hidden="true">
-                <span class="jornada__numeral">01</span>
-                <span class="jornada__numeral">02</span>
-                <span class="jornada__numeral">03</span>
-                <span class="jornada__numeral">04</span>
-                <span class="jornada__numeral">05</span>
-                <span class="jornada__numeral">06</span>
+            <div class="hero__stage">
+                <div class="hero__overlay hero__overlay--front" aria-hidden="true"></div>
+
+                <div class="hero__poster">
+                    <span class="hero__poster-badge">A Saga Lendária</span>
+                    <h1 id="hero-heading" class="hero__poster-title">
+                        <span class="hero__poster-line hero__poster-line--top">Dragon Ball Z</span>
+                        <span class="hero__poster-line hero__poster-line--bottom">A Saga de Freeza</span>
+                    </h1>
+                    <p class="hero__poster-tag">A batalha que forjou uma lenda</p>
+                </div>
+
+                <a href="#personagens" class="hero__scroll" aria-label="Rolar para a seção de personagens">
+                    <span class="hero__scroll-label">Role para começar</span>
+                    <span class="hero__scroll-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+
+        <section id="personagens" class="personagens" aria-labelledby="personagens-heading">
+            <div class="personagens__particles-bg" aria-hidden="true">
+                <div id="personagens-grid" class="personagens__grid"></div>
+            </div>
+            <div class="personagens__header">
+                <p class="personagens__eyebrow">OS GUERREIROS Z</p>
+                <h2 id="personagens-heading" class="personagens__title">Personagens</h2>
+                <p class="personagens__subtitle">OS HERÓIS E VILÕES DA BATALHA EM NAMEKUSEI</p>
             </div>
 
-            <div class="jornada__track">
-                <div class="jornada__panel--hero">
-                    <span class="jornada__kanji" aria-hidden="true">龍</span>
+            <div class="personagens__stage">
+                <figure class="personagem personagem--goku">
+                    <img src="assets/images/goku-perso.png" alt="Goku" loading="lazy" width="410" height="413">
+                    <figcaption>Goku</figcaption>
+                </figure>
+                <figure class="personagem personagem--vegeta">
+                    <img src="assets/images/vegeta-perso.png" alt="Vegeta" loading="lazy" width="410" height="716">
+                    <figcaption>Vegeta</figcaption>
+                </figure>
+                <figure class="personagem personagem--gohan">
+                    <img src="assets/images/magnific_young-anime-warrior-float_cDJQEA40eP.png" alt="Gohan" loading="lazy" width="410" height="588">
+                    <figcaption>Gohan</figcaption>
+                </figure>
+                <figure class="personagem personagem--kuririn">
+                    <img src="assets/images/magnific_short-and-muscular-anime-_e86kEJAdqL.png" alt="Kuririn" loading="lazy" width="410" height="588">
+                    <figcaption>Kuririn</figcaption>
+                </figure>
+                <figure class="personagem personagem--ginyu">
+                    <img src="assets/images/ginyu-perso.png" alt="Capitão Ginyu" loading="lazy" width="410" height="413">
+                    <figcaption>Capitão Ginyu</figcaption>
+                </figure>
+                <figure class="personagem personagem--freeza">
+                    <img src="assets/images/freeza-perso.png" alt="Freeza" loading="lazy" width="410" height="716">
+                    <figcaption>Freeza</figcaption>
+                </figure>
+                <figure class="personagem personagem--piccolo">
+                    <img src="assets/images/magnific_tall-and-muscular-greensk_1s8ZSW4r4r.png" alt="Piccolo" loading="lazy" width="410" height="588">
+                    <figcaption>Piccolo</figcaption>
+                </figure>
+                <figure class="personagem personagem--dodoria">
+                    <img src="assets/images/dodoria-perso.png" alt="Dodoria" loading="lazy" width="410" height="413">
+                    <figcaption>Dodoria</figcaption>
+                </figure>
+                <figure class="personagem personagem--zarbon">
+                    <img src="assets/images/zarbon-perso.png" alt="Zarbon" loading="lazy" width="410" height="413">
+                    <figcaption>Zarbon</figcaption>
+                </figure>
+            </div>
+        </section>
 
-                    <div class="jornada__hero-copy">
-                        <p class="jornada__eyebrow">A JORNADA EM NAMEKUSEI</p>
-                        <h2 class="jornada__title">
-                            <span class="line--main">A Saga do</span>
-                            <span class="line--saga">Freeza</span>
-                        </h2>
-                        <p class="jornada__tagline">A BATALHA QUE FORJOU UMA LENDA</p>
-                        <p class="jornada__scroll">
-                            <span>ROLE PARA ATRAVESSAR</span>
-                            <span class="jornada__scroll-arrow" aria-hidden="true">→</span>
-                        </p>
+        <section id="saga" class="jornada" aria-labelledby="jornada-heading">
+            <div class="jornada__viewport">
+                <div class="jornada__atmos" aria-hidden="true">
+                    <span class="jornada__nebula jornada__nebula--a"></span>
+                    <span class="jornada__nebula jornada__nebula--b"></span>
+                    <span class="jornada__nebula jornada__nebula--c"></span>
+                    <span class="jornada__grain"></span>
+                    <span class="jornada__vignette"></span>
+                </div>
+
+                <div class="jornada__hud" aria-hidden="true">
+                    <div class="jornada__progress"><span class="jornada__progress-fill"></span></div>
+                    <div class="jornada__hud-row">
+                        <span class="jornada__hud-label">A Jornada em Namekusei</span>
+                        <span class="jornada__counter">
+                            <span class="jornada__counter-current" data-counter>01</span>
+                            <span class="jornada__counter-sep">/</span>
+                            <span class="jornada__counter-total">06</span>
+                        </span>
                     </div>
+                </div>
 
-                    <article class="jornada__card" data-reveal="in" style="--ch-accent: var(--cosmic-cyan);">
-                        <div class="jornada__card-media">
-                            <img
-                                src="./assets/images/planete_namek_grande.webp"
-                                alt="Planeta Namekusei verde flutuando em um campo estelar"
-                                loading="lazy"
-                                width="800"
-                                height="500"
-                            >
+                <div class="jornada__track">
+                    <span class="jornada__rail" aria-hidden="true"></span>
+
+                    <article class="jornada__panel jornada__intro">
+                        <span class="jornada__intro-kanji" aria-hidden="true">ナメック</span>
+                        <p class="jornada__eyebrow">A Jornada em Namekusei</p>
+                        <h2 id="jornada-heading" class="jornada__title">A Saga do <span class="jornada__title-accent">Freeza</span></h2>
+                        <p class="jornada__subtitle">A batalha que forjou uma lenda</p>
+                        <span class="jornada__cue">
+                            <span class="jornada__cue-text">Role para atravessar</span>
+                            <span class="jornada__cue-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M13 6l6 6-6 6" />
+                                </svg>
+                            </span>
+                        </span>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="1" style="--ch-accent: var(--cosmic-cyan);">
+                        <span class="jornada__num" aria-hidden="true">01</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <img class="jornada__media" src="assets/images/planete_namek_grande.webp" alt="O planeta Namekusei visto do espaço" loading="lazy" decoding="async">
+                            <span class="jornada__kicker">Capítulo 01</span>
+                            <h3 class="jornada__card-title">Chegada em Namekusei</h3>
+                            <p class="jornada__card-text">Gohan, Kuririn e Bulma viajam até o distante planeta Namekusei em busca das Esferas do Dragão para reviver seus amigos — mas Freeza e seus soldados já estão lá com o mesmo objetivo.</p>
                         </div>
-                        <p class="jornada__card-kicker">CAPÍTULO 01</p>
-                        <h3 class="jornada__card-title">Chegada em Namekusei</h3>
-                        <p class="jornada__card-desc">Gohan, Kuririn e Bulma viajam até o distante planeta Namekusei em busca das Esferas do Dragão para reviver seus amigos — mas Freeza e seus soldados já estão lá com o mesmo objetivo.</p>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="2" style="--ch-accent: var(--cosmic-purple);">
+                        <span class="jornada__num" aria-hidden="true">02</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <img class="jornada__media" src="assets/images/GinyuTokusentai.webp" alt="O Esquadrão Ginyu em pose de combate" loading="lazy" decoding="async">
+                            <span class="jornada__kicker">Capítulo 02</span>
+                            <h3 class="jornada__card-title">O Esquadrão Ginyu ataca</h3>
+                            <p class="jornada__card-text">Freeza convoca a temida força de elite. O Capitão Ginyu troca de corpo com Goku, e só a astúcia dos Guerreiros Z impede o desastre antes da chegada do verdadeiro perigo.</p>
+                        </div>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="3" style="--ch-accent: color-mix(in srgb, var(--cosmic-purple), var(--cosmic-rose));">
+                        <span class="jornada__num" aria-hidden="true">03</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <img class="jornada__media" src="assets/images/kuririn-morto-por-freeza-1200x720.webp" alt="Freeza diante de Kuririn, momentos antes do golpe fatal" loading="lazy" decoding="async">
+                            <span class="jornada__kicker">Capítulo 03</span>
+                            <h3 class="jornada__card-title">A morte de Kuririn</h3>
+                            <p class="jornada__card-text">No auge da batalha, Freeza assassina Kuririn diante de Goku. A perda do amigo de toda uma vida acende uma fúria capaz de despertar uma lenda adormecida.</p>
+                        </div>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="4" style="--ch-accent: var(--cosmic-rose);">
+                        <span class="jornada__num" aria-hidden="true">04</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <img class="jornada__media" src="assets/images/O%20Despertar%20do%20Super%20Saiyajin.webp" alt="Goku transformado em Super Saiyajin, com aura dourada" loading="lazy" decoding="async">
+                            <span class="jornada__kicker">Capítulo 04</span>
+                            <h3 class="jornada__card-title">O Despertar do Super Saiyajin</h3>
+                            <p class="jornada__card-text">Cabelos dourados, aura flamejante: pela primeira vez em mil anos, um Saiyajin alcança a transformação lendária. Goku enfim encara Freeza de igual para igual.</p>
+                        </div>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="5" style="--ch-accent: var(--accent-star);">
+                        <span class="jornada__num" aria-hidden="true">05</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <video class="jornada__video" muted playsinline preload="auto" aria-hidden="true">
+                                <source src="assets/videos/magnific_faca-uma-animacao-dos-pod_iAksbkT3uK.mp4" type="video/mp4">
+                            </video>
+                            <span class="jornada__kicker">Capítulo 05</span>
+                            <h3 class="jornada__card-title">A Batalha Final</h3>
+                            <p class="jornada__card-text">Goku Super Saiyajin contra Freeza em 100% de seu poder. Um confronto colossal que define o destino do universo enquanto Namekusei se desfaz a cada golpe.</p>
+                        </div>
+                    </article>
+
+                    <article class="jornada__panel jornada__chapter" data-chapter="6" style="--ch-accent: var(--accent-star);">
+                        <span class="jornada__num" aria-hidden="true">06</span>
+                        <span class="jornada__node" aria-hidden="true"></span>
+                        <div class="jornada__card">
+                            <img class="jornada__media" src="assets/images/namekusei-destruicao.webp" alt="Namekusei se despedaçando na explosão final" loading="lazy" decoding="async">
+                            <span class="jornada__kicker">Capítulo 06</span>
+                            <h3 class="jornada__card-title">A destruição de Namekusei</h3>
+                            <p class="jornada__card-text">Com o planeta à beira da explosão, Goku enfrenta seus últimos instantes contra o tirano e prova que a esperança — e a coragem — sempre encontram um caminho.</p>
+                        </div>
                     </article>
                 </div>
-
-                <article class="jornada__card" data-reveal style="--ch-accent: var(--cosmic-purple);">
-                    <div class="jornada__card-media">
-                        <img
-                            src="./assets/images/GinyuTokusentai.webp"
-                            alt="Esquadrão Ginyu em pose de batalha com cinco membros"
-                            loading="lazy"
-                            width="800"
-                            height="500"
-                        >
-                    </div>
-                    <p class="jornada__card-kicker">CAPÍTULO 02</p>
-                    <h3 class="jornada__card-title">O Esquadrão Ginyu ataca</h3>
-                    <p class="jornada__card-desc">Freeza convoca a temida força de elite. O Capitão Ginyu troca de corpo com Goku, e só a astúcia dos Guerreiros Z impede o desastre antes da chegada do verdadeiro perigo.</p>
-                </article>
-
-                <article class="jornada__card" data-reveal style="--ch-accent: var(--accent-star);">
-                    <div class="jornada__card-media">
-                        <img
-                            src="./assets/images/kuririn-morto-por-freeza-1200x720.webp"
-                            alt="Freeza e Kuririn no momento da morte de Kuririn"
-                            loading="lazy"
-                            width="800"
-                            height="500"
-                        >
-                    </div>
-                    <p class="jornada__card-kicker">CAPÍTULO 03</p>
-                    <h3 class="jornada__card-title">A morte de Kuririn</h3>
-                    <p class="jornada__card-desc">No auge da batalha, Freeza assassina Kuririn diante de Goku. A perda do amigo de toda uma vida acende uma fúria capaz de despertar uma lenda adormecida.</p>
-                </article>
-
-                <article class="jornada__card" data-reveal style="--ch-accent: var(--cosmic-rose);">
-                    <div class="jornada__card-media">
-                        <img
-                            src="./assets/images/O Despertar do Super Saiyajin.webp"
-                            alt="Goku Super Saiyajin com aura dourada flamejante"
-                            loading="lazy"
-                            width="800"
-                            height="500"
-                        >
-                    </div>
-                    <p class="jornada__card-kicker">CAPÍTULO 04</p>
-                    <h3 class="jornada__card-title">O Despertar do Super Saiyajin</h3>
-                    <p class="jornada__card-desc">Cabelos dourados, aura flamejante: pela primeira vez em mil anos, um Saiyajin alcança a transformação lendária. Goku enfim encara Freeza de igual para igual.</p>
-                </article>
-
-                <article class="jornada__card" data-reveal style="--ch-accent: var(--cosmic-cyan);">
-                    <div class="jornada__card-media">
-                        <video autoplay loop muted playsinline preload="metadata">
-                            <source src="./assets/videos/batalha-final.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <p class="jornada__card-kicker">CAPÍTULO 05</p>
-                    <h3 class="jornada__card-title">A Batalha Final</h3>
-                    <p class="jornada__card-desc">Goku Super Saiyajin contra Freeza em 100% de seu poder. Um confronto colossal que define o destino do universo enquanto Namekusei se desfaz a cada golpe.</p>
-                </article>
-
-                <article class="jornada__card" data-reveal style="--ch-accent: var(--accent-star);">
-                    <div class="jornada__card-media">
-                        <img
-                            src="./assets/images/namekusei-destruicao.webp"
-                            alt="Namekusei se despedaçando em uma explosão cósmica"
-                            loading="lazy"
-                            width="800"
-                            height="500"
-                        >
-                    </div>
-                    <p class="jornada__card-kicker">CAPÍTULO 06</p>
-                    <h3 class="jornada__card-title">A destruição de Namekusei</h3>
-                    <p class="jornada__card-desc">Com o planeta à beira da explosão, Goku enfrenta seus últimos instantes contra o tirano e prova que a esperança — e a coragem — sempre encontram um caminho.</p>
-                </article>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="trailers" class="section section--trailers">
-        <h2>Trailers</h2>
-    </section>
+        <section id="trailers" class="trailers" aria-labelledby="trailers-title">
+            <div class="trailers__bg-text" aria-hidden="true">TRAILERS</div>
 
-    <footer class="section">
-        <p>DBZ — Imersão</p>
-    </footer>
+            <header class="trailers__header">
+                <p class="trailers__eyebrow">Assista agora</p>
+                <h2 id="trailers-title" class="trailers__title">Melhores momentos</h2>
+                <p class="trailers__subtitle">A batalha de Goku contra Freeza em Namekusei</p>
+            </header>
 
-    <script src="./js/personagens-blueprint.js"></script>
-    <script src="./js/script.js"></script>
+            <div class="trailers__carousel" role="region" aria-roledescription="carousel"
+                aria-label="Momentos da Saga do Freeza" tabindex="0">
+                <p id="trailers-carousel-live" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+                <div class="trailers__viewport">
+                    <ul class="trailers__track">
+                        <li id="trailers-slide-0" class="trailers__slide" aria-roledescription="slide"
+                            aria-label="1 de 4">
+                            <div class="trailers__player">
+                                <iframe
+                                    data-src="https://www.youtube-nocookie.com/embed/c7jvWOfwc1M?rel=0"
+                                    src="https://www.youtube-nocookie.com/embed/c7jvWOfwc1M?rel=0"
+                                    title="Goku se torna Super Saiyajin pela primeira vez"
+                                    loading="lazy"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </li>
+                        <li id="trailers-slide-1" class="trailers__slide" aria-roledescription="slide"
+                            aria-label="2 de 4">
+                            <div class="trailers__player">
+                                <iframe
+                                    data-src="https://www.youtube-nocookie.com/embed/CE5RQyafYaE?rel=0"
+                                    title="A transformação Super Saiyajin (dublado PT-BR)"
+                                    loading="lazy"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </li>
+                        <li id="trailers-slide-2" class="trailers__slide" aria-roledescription="slide"
+                            aria-label="3 de 4">
+                            <div class="trailers__player">
+                                <iframe
+                                    data-src="https://www.youtube-nocookie.com/embed/WXJN3ZPFW2o?rel=0"
+                                    title="Dragon Ball Z Kai — Goku Super Saiyajin"
+                                    loading="lazy"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </li>
+                        <li id="trailers-slide-3" class="trailers__slide" aria-roledescription="slide"
+                            aria-label="4 de 4">
+                            <div class="trailers__player">
+                                <iframe
+                                    data-src="https://www.youtube-nocookie.com/embed/anFoJ9WOkWQ?rel=0"
+                                    title="Todas as transformações de Dragon Ball Z"
+                                    loading="lazy"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="trailers__controls">
+                    <button type="button" class="trailers__arrow trailers__arrow--prev" aria-label="Vídeo anterior">
+                        <span aria-hidden="true">&#8249;</span>
+                    </button>
+                    <div class="trailers__dots" role="tablist" aria-label="Seleção de vídeos">
+                        <button type="button" class="trailers__dot is-active" role="tab" aria-label="Ir para vídeo 1"
+                            aria-selected="true" aria-controls="trailers-slide-0" id="trailers-tab-0"></button>
+                        <button type="button" class="trailers__dot" role="tab" aria-label="Ir para vídeo 2"
+                            aria-selected="false" aria-controls="trailers-slide-1" id="trailers-tab-1"></button>
+                        <button type="button" class="trailers__dot" role="tab" aria-label="Ir para vídeo 3"
+                            aria-selected="false" aria-controls="trailers-slide-2" id="trailers-tab-2"></button>
+                        <button type="button" class="trailers__dot" role="tab" aria-label="Ir para vídeo 4"
+                            aria-selected="false" aria-controls="trailers-slide-3" id="trailers-tab-3"></button>
+                    </div>
+                    <button type="button" class="trailers__arrow trailers__arrow--next" aria-label="Próximo vídeo">
+                        <span aria-hidden="true">&#8250;</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="jornada__footer">
+            <p class="jornada__footer-title">Dragon Ball Z: A Saga do Freeza</p>
+            <p class="jornada__footer-text">Projeto conceitual para fins educacionais. Dragon Ball, Dragon Ball Z e personagens relacionados são criação de Akira Toriyama e marcas registradas da Bird Studio / Shueisha e Toei Animation.</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/jornada.js"></script>
 </body>
+
 </html>
